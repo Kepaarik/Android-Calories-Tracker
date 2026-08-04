@@ -110,7 +110,8 @@ private fun SettingsItem(
     Card(
         modifier = Modifier.fillMaxWidth(),
         onClick = onClick,
-        colors = CardDefaults.cardColors()
+        colors = CardDefaults.cardColors(),
+        shape = MaterialTheme.shapes.medium
     ) {
         Row(
             modifier = Modifier
