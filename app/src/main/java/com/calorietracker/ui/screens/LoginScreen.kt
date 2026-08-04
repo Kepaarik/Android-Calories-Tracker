@@ -97,6 +97,21 @@ fun LoginScreen(
                 }
             }
             
+            OutlinedButton(
+                onClick = {
+                    // Guest login for testing
+                    viewModel.loginAsGuest()
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+            ) {
+                Text(
+                    text = "Войти как гость (для тестирования)",
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+            
             Text(
                 text = "Для входа используется ваш аккаунт Telegram",
                 style = MaterialTheme.typography.bodySmall,
@@ -112,6 +127,12 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel() {
     
     val isLoggedIn = authRepository.isLoggedIn
+    
+    fun loginAsGuest() {
+        viewModelScope.launch {
+            authRepository.login()
+        }
+    }
     
     fun processTelegramAuth() {
         // Process Telegram auth data from init data

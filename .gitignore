@@ -3,20 +3,16 @@
 *.o
 *.obj
 *.out
-*.dll
-*.so
-*.a
+build/
+target/
 
 # Dependencies
+node_modules/
+venv/
+.venv/
 __pycache__/
 .mypy_cache/
 .pytest_cache/
-venv/
-.venv/
-node_modules/
-dist/
-build/
-target/
 .gradle/
 
 # Logs and temp files
