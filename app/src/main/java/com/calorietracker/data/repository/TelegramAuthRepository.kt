@@ -4,6 +4,8 @@ import android.util.Log
 import com.calorietracker.data.local.TelegramUserDao
 import com.calorietracker.data.model.TelegramUser
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import org.json.JSONObject
 import java.security.MessageDigest
 import javax.inject.Inject
@@ -18,6 +20,9 @@ class TelegramAuthRepository @Inject constructor(
         private const val BOT_TOKEN = "YOUR_BOT_TOKEN" // Replace with actual bot token from Telegram Bot Father
     }
 
+    private val _isLoggedIn = MutableStateFlow(false)
+    val isLoggedIn = _isLoggedIn.asStateFlow()
+
     fun getCurrentUser(): Flow<TelegramUser?> = 
         telegramUserDao.getCurrentUser()
 
@@ -26,10 +31,22 @@ class TelegramAuthRepository @Inject constructor(
 
     suspend fun saveUser(user: TelegramUser) {
         telegramUserDao.insertUser(user)
+        _isLoggedIn.value = true
+    }
+
+    suspend fun login() {
+        // Simulate login - in real app, this would be called after Telegram auth
+        _isLoggedIn.value = true
+    }
+
+    suspend fun logout() {
+        telegramUserDao.deleteAllUsers()
+        _isLoggedIn.value = false
     }
 
     suspend fun deleteUser() {
         telegramUserDao.deleteAllUsers()
+        _isLoggedIn.value = false
     }
 
     /**

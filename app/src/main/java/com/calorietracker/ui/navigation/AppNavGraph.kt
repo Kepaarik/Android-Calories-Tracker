@@ -18,13 +18,13 @@ import com.calorietracker.ui.screens.HistoryScreen
 
 @Composable
 fun AppNavGraph(
-    navController: NavHostController,
-    modifier: Modifier = Modifier,
-    startDestination: String = Screen.Login.route
+    modifier: Modifier = Modifier
 ) {
+    val navController = androidx.navigation.compose.rememberNavController()
+    
     NavHost(
         navController = navController,
-        startDestination = startDestination,
+        startDestination = Screen.Login.route,
         modifier = modifier
     ) {
         composable(Screen.Login.route) {

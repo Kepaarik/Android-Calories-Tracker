@@ -1,105 +1,53 @@
 ```
-# Android build outputs
-*.apk
+# Kotlin/Android build artifacts
+*.class
+*.jar
+*.war
 *.aar
-*.aab
+*.apk
 *.dex
 
-# Android build directories
-build/
-.externalNativeBuild/
-.intermediates/
-outputs/
-
-# Gradle
+# Android specific
+/build/
 .gradle/
-!gradle/wrapper/gradle-wrapper.properties
-
-# Local configuration file (sdk path, etc)
 local.properties
+.pro
+cxx/
 
-# Log Files
-*.log
+# Dependencies
+node_modules/
+.libs/
 
-# Android Studio Navigation editor temp files
-.navigation/
-
-# Android Studio captures folder
-captures/
-
-# IntelliJ IDEA
+# IDE files
 .idea/
 *.iml
+*.ipr
 *.iws
+.vscode/
 
-# Keystore files
-*.keystore
-*.jks
+# Compiled Python files (if any Python present)
+*.pyc
+__pycache__/
 
-# Generated files
-gen/
-generated/
+# Logs
+*.log
 
-# Debug & Release folders
-debug/
-release/
-
-# APK Analyzer
-.apk-analyzer/
-
-# Profiler output
-*.hprof
-
-# Android cache
-.cache/
-
-# Temporary files
-*.tmp
-*.temp
-
-# Environment files
+# Environment
 .env
 .env.local
 *.env.*
 
-# Coverage reports
-coverage/
-*.ec
-*.lcov
-*.profdata
-
-# Python related (if any Python scripts in project)
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-.venv/
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.log
-*.pot
-*.pyc
-*.pyo
-*.pyd
-.MF
-.pytest_cache/
-.mypy_cache/
-.hypothesis/
-
-# General temp/cache files
-*.tmp
-*.temp
-*.cache
+# OS generated files
 .DS_Store
 Thumbs.db
+
+# Coverage reports
+coverage/
+htmlcov/
+.coverage
+
+# Temporary files
+*.tmp
+*.temp
+*~
 ```
