@@ -228,13 +228,13 @@ data class ActivityUiState(
 class ActivityViewModel @Inject constructor(
     private val activityRepository: ActivityRepository
 ) : ViewModel() {
-    
+
     val uiState = MutableStateFlow(ActivityUiState())
-    
+
     init {
         loadActivityData()
     }
-    
+
     private fun loadActivityData() {
         viewModelScope.launch {
             // Load data from Google Fit or local storage
