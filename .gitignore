@@ -1,0 +1,53 @@
+```
+# Kotlin/Android build artifacts
+*.class
+*.jar
+*.war
+*.aar
+*.apk
+*.dex
+
+# Android specific
+/build/
+.gradle/
+local.properties
+.pro
+cxx/
+
+# Dependencies
+node_modules/
+.libs/
+
+# IDE files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Compiled Python files (if any Python present)
+*.pyc
+__pycache__/
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+coverage/
+htmlcov/
+.coverage
+
+# Temporary files
+*.tmp
+*.temp
+*~
+```
