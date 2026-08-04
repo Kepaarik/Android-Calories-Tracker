@@ -2,10 +2,11 @@
 *.class
 *.o
 *.obj
-*.out
+*.exe
 *.dll
 *.so
 *.a
+*.out
 
 # Dependencies
 node_modules/
@@ -30,14 +31,12 @@ target/
 # Editors
 .vscode/
 .idea/
-*.swp
-*.swo
 
-# System
+# System files
 .DS_Store
 Thumbs.db
 
-# Coverage
+# Coverage reports
 coverage/
 htmlcov/
 .coverage

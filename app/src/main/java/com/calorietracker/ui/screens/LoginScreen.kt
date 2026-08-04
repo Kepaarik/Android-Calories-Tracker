@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.ui.geometry.Offset
 import com.calorietracker.ui.components.GlassCard
 import com.calorietracker.ui.components.GlassButton
 import com.calorietracker.ui.components.GlassTextField
@@ -40,7 +41,7 @@ fun LoginScreen(
                         Color(0xFF0088CC).copy(alpha = 0.15f),
                         Color.Transparent
                     ),
-                    center = Alignment.TopCenter,
+                    center = Offset(0f, 0f),
                     radius = 400f
                 )
             )
