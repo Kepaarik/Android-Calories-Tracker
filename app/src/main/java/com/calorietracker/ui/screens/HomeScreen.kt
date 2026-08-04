@@ -216,7 +216,7 @@ fun HomeScreen(
 @Composable
 private fun MacroCard(label: String, value: Int, unit: String) {
     Card(
-        modifier = Modifier.width(0.dp).weight(1f),
+        modifier = Modifier.weight(1f),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
