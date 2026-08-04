@@ -3,10 +3,6 @@
 *.class
 *.o
 *.obj
-*.exe
-*.dll
-*.so
-*.a
 *.out
 build/
 target/
@@ -19,7 +15,6 @@ __pycache__/
 venv/
 .venv/
 node_modules/
-dist/
 
 # Logs and temp files
 *.log
