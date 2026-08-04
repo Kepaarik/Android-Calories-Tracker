@@ -10,43 +10,49 @@ build/
 .idea/
 *.iml
 *.iws
-
-# Gradle
-.gradle/
-!gradle.properties
+*.log
 
 # Local configuration file (sdk path, etc)
 local.properties
 
+# Proguard folder
+proguard/
+
 # Log Files
 *.log
-
-# Built application files
-*.apk
-*.ap_
-*.aab
-
-# Files for the ART/Dalvik VM
-*.dex
-
-# Java class file
-*.class
 
 # Generated files
 gen/
 out/
 
-# Android Studio Navigation editor temp files
-.navigation/
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
 
-# Android lint output
-lint-results-*.xml
-
-# Some random templates
-*.swp
-*~
+# Mac OS X
 .DS_Store
 
-# Google Services
-google-services.json
+# Python related (if present in Android project)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+.coverage
+htmlcov/
+coverage/
+.mypy_cache/
+.pytest_cache/
+
+# Node.js related (if present in Android project)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.*
 ```
