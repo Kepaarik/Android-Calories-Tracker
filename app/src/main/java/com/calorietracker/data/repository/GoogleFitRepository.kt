@@ -2,12 +2,10 @@ package com.calorietracker.data.repository
 
 import android.content.Context
 import android.util.Log
-import com.calorietracker.data.local.TelegramUserDao
-import com.calorietracker.data.model.TelegramUser
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.fitness.Fitness
-import com.google.android.gms.fitness.data.DataTypes
+import com.google.android.gms.fitness.data.DataType
 import com.google.android.gms.fitness.request.DataReadRequest
 import com.google.android.gms.tasks.Tasks
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -30,7 +28,7 @@ class GoogleFitRepository @Inject constructor(
     suspend fun getTodaySteps(): Int {
         return try {
             val request = DataReadRequest.Builder()
-                .read(DataTypes.TYPE_STEP_COUNT_DELTA)
+                .read(DataType.TYPE_STEP_COUNT_DELTA)
                 .setTimeRange(
                     getStartOfDayMillis(),
                     System.currentTimeMillis(),
@@ -40,9 +38,9 @@ class GoogleFitRepository @Inject constructor(
 
             val response = Tasks.await(fitnessApi.readData(request))
             
-            val totalSteps = response.getDataSet(DataTypes.TYPE_STEP_COUNT_DELTA)
+            val totalSteps = response.getDataSet(DataType.TYPE_STEP_COUNT_DELTA)
                 .dataPoints
-                .sumOf { it.getValue(DataTypes.FIELD_STEPS).asInt() }
+                .sumOf { it.getValue(DataType.FIELD_STEPS).asInt() }
             
             totalSteps
         } catch (e: Exception) {
@@ -54,7 +52,7 @@ class GoogleFitRepository @Inject constructor(
     suspend fun getTodayCaloriesBurned(): Int {
         return try {
             val request = DataReadRequest.Builder()
-                .read(DataTypes.TYPE_CALORIES_EXPENDED)
+                .read(DataType.TYPE_CALORIES_EXPENDED)
                 .setTimeRange(
                     getStartOfDayMillis(),
                     System.currentTimeMillis(),
@@ -64,9 +62,9 @@ class GoogleFitRepository @Inject constructor(
 
             val response = Tasks.await(fitnessApi.readData(request))
             
-            val totalCalories = response.getDataSet(DataTypes.TYPE_CALORIES_EXPENDED)
+            val totalCalories = response.getDataSet(DataType.TYPE_CALORIES_EXPENDED)
                 .dataPoints
-                .sumOf { it.getValue(DataTypes.FIELD_CALORIES).asFloat().toInt() }
+                .sumOf { it.getValue(DataType.FIELD_CALORIES).asFloat().toInt() }
             
             totalCalories
         } catch (e: Exception) {
@@ -78,7 +76,7 @@ class GoogleFitRepository @Inject constructor(
     suspend fun getTodayDistance(): Float {
         return try {
             val request = DataReadRequest.Builder()
-                .read(DataTypes.TYPE_DISTANCE_DELTA)
+                .read(DataType.TYPE_DISTANCE_DELTA)
                 .setTimeRange(
                     getStartOfDayMillis(),
                     System.currentTimeMillis(),
@@ -88,9 +86,9 @@ class GoogleFitRepository @Inject constructor(
 
             val response = Tasks.await(fitnessApi.readData(request))
             
-            val totalDistance = response.getDataSet(DataTypes.TYPE_DISTANCE_DELTA)
+            val totalDistance = response.getDataSet(DataType.TYPE_DISTANCE_DELTA)
                 .dataPoints
-                .sumOf { it.getValue(DataTypes.FIELD_DISTANCE).asFloat() }
+                .sumOf { it.getValue(DataType.FIELD_DISTANCE).asFloat() }
             
             totalDistance
         } catch (e: Exception) {
@@ -102,7 +100,7 @@ class GoogleFitRepository @Inject constructor(
     suspend fun getTodayActiveMinutes(): Int {
         return try {
             val request = DataReadRequest.Builder()
-                .read(DataTypes.TYPE_DURATION)
+                .read(DataType.TYPE_DURATION)
                 .setTimeRange(
                     getStartOfDayMillis(),
                     System.currentTimeMillis(),
@@ -112,9 +110,9 @@ class GoogleFitRepository @Inject constructor(
 
             val response = Tasks.await(fitnessApi.readData(request))
             
-            val totalMinutes = response.getDataSet(DataTypes.TYPE_DURATION)
+            val totalMinutes = response.getDataSet(DataType.TYPE_DURATION)
                 .dataPoints
-                .sumOf { it.getValue(DataTypes.FIELD_DURATION).asInt(TimeUnit.MINUTES) }
+                .sumOf { it.getValue(DataType.FIELD_DURATION).asInt(TimeUnit.MINUTES) }
             
             totalMinutes
         } catch (e: Exception) {

@@ -108,10 +108,14 @@ class TelegramAuthRepository @Inject constructor(
             }
     }
 
-    private fun hmacSha256(message: String, key: String): ByteArray {
+    private fun hmacSha256(message: String, key: ByteArray): ByteArray {
         val mac = javax.crypto.Mac.getInstance("HmacSHA256")
-        mac.init(javax.crypto.spec.SecretKeySpec(key.toByteArray(), "HmacSHA256"))
+        mac.init(javax.crypto.spec.SecretKeySpec(key, "HmacSHA256"))
         return mac.doFinal(message.toByteArray())
+    }
+
+    private fun hmacSha256(message: String, key: String): ByteArray {
+        return hmacSha256(message, key.toByteArray())
     }
 
     private fun ByteArray.toHexString(): String {
