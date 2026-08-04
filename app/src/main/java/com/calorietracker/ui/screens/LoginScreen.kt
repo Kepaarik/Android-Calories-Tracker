@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,6 +14,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.isSystemInDarkTheme
 import com.calorietracker.ui.components.GlassCard
 import com.calorietracker.ui.components.GlassButton
 import com.calorietracker.ui.components.GlassTextField
@@ -22,8 +24,7 @@ import com.calorietracker.ui.theme.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    onLoginSuccess: () -> Unit,
-    onNavigateToRegister: () -> Unit
+    onLoginSuccess: () -> Unit
 ) {
     val isDarkTheme = isSystemInDarkTheme()
     var email by remember { mutableStateOf("") }
@@ -39,8 +40,8 @@ fun LoginScreen(
                         Color(0xFF0088CC).copy(alpha = 0.15f),
                         Color.Transparent
                     ),
-                    center = Alignment.TopStart,
-                    radius = 400.dp
+                    center = Alignment.TopCenter,
+                    radius = 400f
                 )
             )
     ) {
