@@ -216,7 +216,7 @@ fun HomeScreen(
 @Composable
 private fun MacroCard(label: String, value: Int, unit: String) {
     Card(
-        modifier = Modifier.weight(1f),
+        modifier = Modifier.weight(1f).fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
@@ -242,6 +242,7 @@ private fun MacroCard(label: String, value: Int, unit: String) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ActionButton(
     icon: androidx.compose.ui.graphics.vector.ImageVector,
