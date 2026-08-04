@@ -3,6 +3,7 @@ package com.calorietracker.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -127,7 +128,7 @@ private fun SettingsItem(
                 )
             }
             Icon(
-                androidx.compose.material.icons.Icons.Default.ChevronRight,
+                Icons.Default.ChevronRight,
                 contentDescription = null
             )
         }
