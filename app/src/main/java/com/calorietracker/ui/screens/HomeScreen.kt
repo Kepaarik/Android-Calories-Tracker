@@ -127,9 +127,9 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                MacroCard("Белки", uiState.protein, "г")
-                MacroCard("Жиры", uiState.fat, "г")
-                MacroCard("Углеводы", uiState.carbs, "г")
+                MacroCard("Белки", uiState.protein, "г", modifier = Modifier.weight(1f))
+                MacroCard("Жиры", uiState.fat, "г", modifier = Modifier.weight(1f))
+                MacroCard("Углеводы", uiState.carbs, "г", modifier = Modifier.weight(1f))
             }
             
             // Quick Actions
@@ -214,10 +214,9 @@ fun HomeScreen(
 }
 
 @Composable
-private fun MacroCard(label: String, value: Int, unit: String) {
+private fun MacroCard(label: String, value: Int, unit: String, modifier: Modifier = Modifier) {
     Card(
-        modifier = Modifier
-            .weight(1f)
+        modifier = modifier
             .fillMaxWidth(),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
