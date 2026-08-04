@@ -10,6 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.HiltViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -289,9 +295,9 @@ data class RecentEntry(
 class HomeViewModel @Inject constructor(
     private val foodRepository: com.calorietracker.data.repository.FoodRepository,
     private val goalRepository: com.calorietracker.data.repository.GoalRepository
-) : androidx.lifecycle.ViewModel() {
+) : ViewModel() {
     
-    val uiState = kotlinx.coroutines.flow.MutableStateFlow(HomeUiState())
+    val uiState = MutableStateFlow(HomeUiState())
     
     init {
         loadTodayData()

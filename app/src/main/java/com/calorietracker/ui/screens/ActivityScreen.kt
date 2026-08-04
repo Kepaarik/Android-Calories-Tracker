@@ -2,7 +2,12 @@ package com.calorietracker.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.DirectionsWalk
+import androidx.compose.material.icons.filled.LocalFireDepartment
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Schedule
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -10,7 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.HiltViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.calorietracker.data.repository.ActivityRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,7 +38,7 @@ fun ActivityScreen(
                 title = { Text("Активность") },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Назад")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Назад")
                     }
                 }
             )
@@ -61,7 +72,7 @@ fun ActivityScreen(
                             color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                         Icon(
-                            androidx.compose.material.icons.Icons.Default.DirectionsWalk,
+                            Icons.Default.DirectionsWalk,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.onPrimaryContainer
                         )
@@ -114,7 +125,7 @@ fun ActivityScreen(
                         )
                     }
                     Icon(
-                        androidx.compose.material.icons.Icons.LocalFireDepartment,
+                        Icons.Default.LocalFireDepartment,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onSecondaryContainer,
                         modifier = Modifier.size(48.dp)
@@ -150,7 +161,7 @@ fun ActivityScreen(
                         )
                     }
                     Icon(
-                        androidx.compose.material.icons.Icons.Default.LocationOn,
+                        Icons.Default.LocationOn,
                         contentDescription = null,
                         tint = MaterialTheme.colorScheme.onTertiaryContainer,
                         modifier = Modifier.size(48.dp)
@@ -181,7 +192,7 @@ fun ActivityScreen(
                         )
                     }
                     Icon(
-                        androidx.compose.material.icons.Icons.Default.Schedule,
+                        Icons.Default.Schedule,
                         contentDescription = null,
                         modifier = Modifier.size(48.dp)
                     )
@@ -195,7 +206,7 @@ fun ActivityScreen(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Icon(
-                    androidx.compose.material.icons.Icons.Default.Refresh,
+                    Icons.Default.Refresh,
                     contentDescription = null
                 )
                 Spacer(modifier = Modifier.width(8.dp))
@@ -216,9 +227,9 @@ data class ActivityUiState(
 @HiltViewModel
 class ActivityViewModel @Inject constructor(
     private val activityRepository: ActivityRepository
-) : androidx.lifecycle.ViewModel() {
+) : ViewModel() {
     
-    val uiState = kotlinx.coroutines.flow.MutableStateFlow(ActivityUiState())
+    val uiState = MutableStateFlow(ActivityUiState())
     
     init {
         loadActivityData()
