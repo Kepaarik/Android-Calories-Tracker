@@ -296,13 +296,13 @@ class HomeViewModel @Inject constructor(
     private val foodRepository: com.calorietracker.data.repository.FoodRepository,
     private val goalRepository: com.calorietracker.data.repository.GoalRepository
 ) : ViewModel() {
-    
+
     val uiState = MutableStateFlow(HomeUiState())
-    
+
     init {
         loadTodayData()
     }
-    
+
     private fun loadTodayData() {
         viewModelScope.launch {
             // Load data from repositories
