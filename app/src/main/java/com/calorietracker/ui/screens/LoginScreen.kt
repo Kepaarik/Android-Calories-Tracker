@@ -5,6 +5,8 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,6 +15,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.calorietracker.data.repository.TelegramAuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -82,7 +86,7 @@ fun LoginScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
-                        imageVector = androidx.compose.material.icons.Icons.Default.Person,
+                        imageVector = Icons.Default.Person,
                         contentDescription = null
                     )
                     Text(
@@ -104,7 +108,7 @@ fun LoginScreen(
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val authRepository: TelegramAuthRepository
-) : androidx.lifecycle.ViewModel() {
+) : ViewModel() {
     
     val isLoggedIn = authRepository.isLoggedIn
     

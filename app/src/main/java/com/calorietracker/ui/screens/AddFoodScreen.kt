@@ -3,6 +3,7 @@ package com.calorietracker.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.QrCodeScanner
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -90,7 +91,7 @@ fun AddFoodScreen(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Icon(
-                    androidx.compose.material.icons.Icons.Default.QrCodeScanner,
+                    Icons.Default.QrCodeScanner,
                     contentDescription = null
                 )
                 Spacer(modifier = Modifier.width(8.dp))
