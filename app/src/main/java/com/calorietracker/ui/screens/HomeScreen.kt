@@ -3,6 +3,7 @@ package com.calorietracker.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -146,19 +147,19 @@ fun HomeScreen(
                     icon = Icons.Default.QrCodeScanner,
                     label = "Сканер",
                     onClick = onNavigateToScanBarcode,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.fillMaxWidth().weight(1f)
                 )
                 ActionButton(
                     icon = Icons.Default.AddCircle,
                     label = "Еда",
                     onClick = onNavigateToAddFood,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.fillMaxWidth().weight(1f)
                 )
                 ActionButton(
                     icon = Icons.Default.FitnessCenter,
                     label = "Тренировка",
                     onClick = onNavigateToActivity,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.fillMaxWidth().weight(1f)
                 )
             }
             
@@ -215,7 +216,7 @@ fun HomeScreen(
 @Composable
 private fun MacroCard(label: String, value: Int, unit: String) {
     Card(
-        modifier = Modifier.weight(1f),
+        modifier = Modifier.width(0.dp).weight(1f),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         )
