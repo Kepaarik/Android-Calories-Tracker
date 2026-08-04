@@ -1,58 +1,51 @@
 ```
-# Android build artifacts
+# Build artifacts
 build/
-.gradle/
-*.apk
-*.aar
-*.dex
-
-# Android studio
-.idea/
-*.iml
-*.iws
-*.log
-
-# Local configuration file (sdk path, etc)
-local.properties
-
-# Proguard folder
-proguard/
-
-# Log Files
-*.log
-
-# Generated files
-gen/
-out/
-
-# Windows thumbnail cache files
-Thumbs.db
-ehthumbs.db
-
-# Mac OS X
-.DS_Store
-
-# Python related (if present in Android project)
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
+*.jar
+*.war
+*.class
+*.o
+*.obj
 *.so
-.coverage
-htmlcov/
-coverage/
-.mypy_cache/
-.pytest_cache/
+*.dll
+*.exe
 
-# Node.js related (if present in Android project)
+# Dependencies
+.gradle/
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+venv/
+.venv/
+__pycache__/
+*.egg-info/
 
-# Environment variables
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Environment
 .env
 .env.local
-.env.*
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Coverage
+.coverage
+coverage/
+htmlcov/
+
+# Distribution / packaging
+dist/
+target/
 ```
