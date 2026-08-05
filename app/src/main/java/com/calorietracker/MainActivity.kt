@@ -8,8 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.calorietracker.ui.navigation.AppNavGraph
-import com.calorietracker.ui.theme.CalorieTrackerTheme
+import androidx.navigation.compose.rememberNavController
+import com.calorietracker.presentation.navigation.NavGraph
+import com.calorietracker.presentation.theme.CalorieTrackerTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -23,7 +24,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    AppNavGraph()
+                    val navController = rememberNavController()
+                    NavGraph(navController = navController)
                 }
             }
         }

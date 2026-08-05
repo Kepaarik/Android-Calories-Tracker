@@ -1,8 +1,6 @@
 package com.calorietracker.presentation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -22,30 +20,21 @@ fun NavGraph(
     navController: NavHostController,
     authViewModel: AuthViewModel = hiltViewModel()
 ) {
-    val authState by authViewModel.authState.collectAsState()
-    
-    val startDestination = when {
-        authState.isLoading -> Screen.Splash.route
-        authState.isLoggedIn -> Screen.Dashboard.route
-        else -> Screen.Login.route
-    }
-    
     NavHost(
         navController = navController,
-        startDestination = startDestination
+        startDestination = Screen.Splash.route
     ) {
         // Splash Screen
         composable(Screen.Splash.route) {
             SplashScreen(
-                onTimeout = {
-                    if (authState.isLoggedIn) {
-                        navController.navigate(Screen.Dashboard.route) {
-                            popUpTo(Screen.Splash.route) { inclusive = true }
-                        }
-                    } else {
-                        navController.navigate(Screen.Login.route) {
-                            popUpTo(Screen.Splash.route) { inclusive = true }
-                        }
+                onNavigateToLogin = {
+                    navController.navigate(Screen.Login.route) {
+                        popUpTo(Screen.Splash.route) { inclusive = true }
+                    }
+                },
+                onNavigateToDashboard = {
+                    navController.navigate(Screen.Dashboard.route) {
+                        popUpTo(Screen.Splash.route) { inclusive = true }
                     }
                 }
             )
@@ -65,14 +54,25 @@ fun NavGraph(
             )
         }
         
-        // Dashboard Screen
+        // Dashboard Screen with Bottom Navigation
         composable(Screen.Dashboard.route) {
-            DashboardScreen()
+            DashboardScreen(
+                onNavigateToProducts = {
+                    navController.navigate(Screen.Products.route)
+                },
+                onNavigateToStatistics = {
+                    navController.navigate(Screen.Statistics.route)
+                },
+                onNavigateToProfile = {
+                    navController.navigate(Screen.Profile.route)
+                }
+            )
         }
         
         // Products Screen
         composable(Screen.Products.route) {
             ProductsScreen(
+                onNavigateBack = { navController.popBackStack() },
                 onProductSelected = { product ->
                     // TODO: Show dialog to add product to diary
                 }
@@ -81,12 +81,15 @@ fun NavGraph(
         
         // Statistics Screen
         composable(Screen.Statistics.route) {
-            StatisticsScreen()
+            StatisticsScreen(
+                onNavigateBack = { navController.popBackStack() }
+            )
         }
         
         // Profile Screen
         composable(Screen.Profile.route) {
             ProfileScreen(
+                onNavigateBack = { navController.popBackStack() },
                 onLogout = {
                     authViewModel.logout()
                     navController.navigate(Screen.Login.route) {
