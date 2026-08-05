@@ -17,12 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.HiltViewModel
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.calorietracker.data.repository.ActivityRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.launch
-import java.time.LocalDate
+import javax.inject.Inject
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -229,31 +226,28 @@ class ActivityViewModel @Inject constructor(
     private val activityRepository: ActivityRepository
 ) : ViewModel() {
 
-    val uiState = MutableStateFlow(ActivityUiState())
+    private val _uiState = mutableStateOf(ActivityUiState())
+    val uiState: State<ActivityUiState> = _uiState
 
     init {
         loadActivityData()
     }
 
     private fun loadActivityData() {
-        viewModelScope.launch {
-            // Load data from Google Fit or local storage
-            // This is a simplified example with mock data
-            uiState.value = ActivityUiState(
-                steps = 7523,
-                stepGoal = 10000,
-                caloriesBurned = 420,
-                distanceKm = 5.2,
-                activeMinutes = 45
-            )
-        }
+        // Load data from Google Fit or local storage synchronously
+        // This is a simplified example with mock data
+        _uiState.value = ActivityUiState(
+            steps = 7523,
+            stepGoal = 10000,
+            caloriesBurned = 420,
+            distanceKm = 5.2,
+            activeMinutes = 45
+        )
     }
     
     fun syncWithGoogleFit() {
-        viewModelScope.launch {
-            // Sync with Google Fit API
-            // Update uiState with real data
-            loadActivityData()
-        }
+        // Sync with Google Fit API synchronously
+        // Update uiState with real data
+        loadActivityData()
     }
 }

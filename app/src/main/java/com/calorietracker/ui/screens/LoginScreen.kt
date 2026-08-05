@@ -111,9 +111,6 @@ class LoginViewModel @Inject constructor(
     fun processTelegramAuth() {
         // Process Telegram auth data from init data
         // In real implementation, parse initData from Telegram Web App
-        viewModelScope.launch {
-            // Simulate auth process
-            authRepository.login()
-        }
+        authRepository.login()
     }
 }
