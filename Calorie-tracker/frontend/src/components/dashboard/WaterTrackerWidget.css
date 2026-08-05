@@ -1,0 +1,30 @@
+.water-tracker-widget-skeleton-card {
+  padding: 16px;
+}
+
+.water-tracker-widget-skeleton-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.water-tracker-widget-skeleton-header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.water-tracker-widget-skeleton-subtitle {
+  margin-bottom: 12px;
+}
+
+.water-tracker-widget-skeleton-dots {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.water-tracker-widget-skeleton-dot {
+  border-radius: 50%;
+}

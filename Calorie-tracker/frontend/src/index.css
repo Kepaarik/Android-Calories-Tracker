@@ -1,0 +1,1397 @@
+﻿/* frontend/src/index.css */
+
+/* ============================================
+   БАЗОВЫЕ ПЕРЕМЕННЫЕ - СВЕТЛАЯ ТЕМА (УСИЛЕННАЯ)
+   ============================================ */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --bg-color: #e8f4f8;
+  --text-primary: #1a1a2e;
+  --text-secondary: #6b7280;
+  /* ← ЗАТЕМНЕНО ДЛЯ КОНТРАСТА НА СВЕТЛЫХ ПОВЕРХНОСТЯХ (было #0088cc, ~3.9:1 на белом) */
+  --primary-color: #0077b3;
+  --primary-light: rgba(0, 119, 179, 0.2);
+
+  /* ← УСИЛЕНА НЕПРОЗРАЧНОСТЬ ПОВЕРХНОСТЕЙ */
+  --surface-color: rgba(255, 255, 255, 0.7);
+  --surface-hover: rgba(255, 255, 255, 0.9);
+  --border-color: rgba(0, 0, 0, 0.1);
+
+  /* ← ЗАТЕМНЕНЫ ДЛЯ КОНТРАСТА ТЕКСТА НА БЕЛЫХ/СВЕТЛЫХ КАРТОЧКАХ */
+  --danger-color: #e53935;
+  --warning-color: #e65100;
+  --success-color: #2e7d32;
+  --macro-protein-color: #1976d2;
+
+  /* ← GLASS БОЛЕЕ ПЛОТНЫЙ */
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(0, 0, 0, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.85);
+  --glass-focus: rgba(0, 119, 179, 0.25);
+
+  /* ← БОЛЕЕ ГЛУБОКИЕ ТЕНИ */
+  --shadow-color: rgba(0, 0, 0, 0.12);
+  --shadow-strong: rgba(0, 0, 0, 0.22);
+
+  /* ← НОВАЯ ПЕРЕМЕННАЯ ДЛЯ АКТИВНЫХ/ВЫБРАННЫХ ЭЛЕМЕНТОВ */
+  --active-bg: rgba(0, 119, 179, 0.18);
+  --active-border: rgba(0, 119, 179, 0.6);
+  --active-text: #0066a8;
+}
+
+/* ============================================
+   ИНПУТЫ - УСИЛЕНИЕ В СВЕТЛОЙ ТЕМЕ
+   ============================================ */
+[data-theme="light"] .glass-input {
+  background: rgba(255, 255, 255, 0.75);
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="light"] .glass-input:focus {
+  background: #ffffff;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light), 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+   КНОПКИ - УСИЛЕНИЕ В СВЕТЛОЙ ТЕМЕ
+   ============================================ */
+[data-theme="light"] .glass-btn {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(0, 0, 0, 0.12);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .glass-btn:hover {
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .glass-btn.btn-icon {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+[data-theme="light"] .glass-btn.btn-icon:hover {
+  background: #ffffff;
+}
+
+[data-theme="light"] .glass-btn:not(.glass-btn-danger):not(.glass-btn-success) {
+  background: rgba(255, 255, 255, 0.85);
+  border-color: rgba(0, 0, 0, 0.15);
+  color: var(--text-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"]
+  .glass-btn:not(.glass-btn-danger):not(.glass-btn-success):hover {
+  background: #ffffff;
+  border-color: var(--primary-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================
+   КАРТОЧКИ - УСИЛЕНИЕ В СВЕТЛОЙ ТЕМЕ
+   ============================================ */
+[data-theme="light"] .glass.card {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="light"] .glass.card:hover {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================
+   МОДАЛЬНЫЕ ОКНА - УСИЛЕНИЕ В СВЕТЛОЙ ТЕМЕ
+   ============================================ */
+[data-theme="light"] .modal-content {
+  background: rgba(255, 255, 255, 0.92);
+  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25), 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+/* ============================================
+   ТЁМНАЯ ТЕМА
+   ============================================ */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-color: #0f0f1e;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0b0;
+  --primary-color: #00a8cc;
+  --primary-light: rgba(0, 168, 204, 0.2);
+  --surface-color: rgba(37, 37, 66, 0.4);
+  --surface-hover: rgba(37, 37, 66, 0.55);
+  --border-color: rgba(255, 255, 255, 0.12);
+  --danger-color: #ef5350;
+  --warning-color: #ffa726;
+  --success-color: #66bb6a;
+  --macro-protein-color: #42a5f5;
+  --glass-bg: rgba(37, 37, 66, 0.35);
+  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass-highlight: rgba(255, 255, 255, 0.15);
+  --glass-focus: rgba(0, 168, 204, 0.25);
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --shadow-strong: rgba(0, 0, 0, 0.5);
+  --active-bg: rgba(0, 168, 204, 0.25);
+  --active-border: rgba(0, 168, 204, 0.7);
+  --active-text: #4dd0e1;
+}
+
+/* ============================================
+   НЕОДНОРОДНЫЙ ФОН С ГРАДИЕНТОМ
+   ============================================ */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-primary);
+  transition: background 0.5s ease, color 0.3s ease;
+  min-height: 100vh;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+
+  background: radial-gradient(
+      circle at 20% 30%,
+      rgba(0, 136, 204, 0.15) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(102, 187, 106, 0.12) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 167, 38, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 10% 80%,
+      rgba(239, 83, 80, 0.1) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(156, 39, 176, 0.1) 0%,
+      transparent 40%
+    ),
+    var(--bg-color);
+  background-attachment: fixed;
+}
+
+[data-theme="dark"] body {
+  background: radial-gradient(
+      circle at 20% 30%,
+      rgba(0, 168, 204, 0.2) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(102, 187, 106, 0.15) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 167, 38, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 10% 80%,
+      rgba(239, 83, 80, 0.15) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(156, 39, 176, 0.15) 0%,
+      transparent 40%
+    ),
+    var(--bg-color);
+  background-attachment: fixed;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ============================================
+   УБИРАЕМ СТАНДАРТНОЕ ГОЛУБОЕ ВЫДЕЛЕНИЕ
+   ============================================ */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  outline: none;
+}
+
+::selection {
+  background: var(--glass-focus);
+  color: var(--text-primary);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+::-moz-selection {
+  background: var(--glass-focus);
+  color: var(--text-primary);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* ============================================
+   КОНТЕЙНЕР
+   ============================================ */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* ============================================
+   GLASS ЭФФЕКТ ДЛЯ ВСЕХ КАРТОЧЕК
+   ============================================ */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px var(--shadow-color),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.glass.card {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  transition: all 0.3s ease;
+}
+
+.glass.card:hover {
+  background: var(--surface-hover);
+  box-shadow: 0 12px 40px var(--shadow-strong);
+}
+
+/* ============================================
+   КНОПКИ - ВСЕ ПРОЗРАЧНЫЕ С GLASS ВЫДЕЛЕНИЕМ
+   ============================================ */
+.glass-btn {
+  background: var(--glass-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.glass-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px var(--shadow-strong);
+}
+
+.glass-btn:focus-visible,
+.glass-btn:active {
+  background: var(--glass-focus);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light), 0 4px 12px var(--shadow-strong);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+}
+
+.glass-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.glass-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.glass-btn.btn-icon {
+  padding: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-btn.btn-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+[data-theme="light"] .glass-btn-success {
+  background: linear-gradient(
+    135deg,
+    rgba(56, 142, 60, 0.95),
+    rgba(76, 175, 80, 0.95)
+  );
+  color: white;
+  border-color: rgba(46, 125, 50, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(56, 142, 60, 0.3);
+}
+
+[data-theme="light"] .glass-btn-success:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(46, 125, 50, 1),
+    rgba(67, 160, 71, 1)
+  );
+  box-shadow: 0 6px 16px rgba(56, 142, 60, 0.4);
+}
+
+[data-theme="light"] .glass-btn-success:active,
+[data-theme="light"] .glass-btn-success:focus-visible {
+  background: linear-gradient(
+    135deg,
+    rgba(27, 94, 32, 1),
+    rgba(56, 142, 60, 1)
+  );
+  box-shadow: 0 0 0 3px rgba(102, 187, 106, 0.3),
+    0 6px 16px rgba(56, 142, 60, 0.5);
+}
+
+.glass-btn-success {
+  background: linear-gradient(
+    135deg,
+    rgba(67, 160, 71, 0.7),
+    rgba(102, 187, 106, 0.7)
+  );
+  color: white;
+  border-color: rgba(255, 255, 255, 0.2);
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.glass-btn-success:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(56, 142, 60, 0.8),
+    rgba(76, 175, 80, 0.8)
+  );
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(67, 160, 71, 0.4);
+}
+
+.glass-btn-success:focus-visible,
+.glass-btn-success:active {
+  background: linear-gradient(
+    135deg,
+    rgba(67, 160, 71, 0.9),
+    rgba(102, 187, 106, 0.9)
+  );
+  box-shadow: 0 0 0 3px rgba(102, 187, 106, 0.3),
+    0 4px 16px rgba(67, 160, 71, 0.5);
+}
+
+[data-theme="light"] .glass-btn-danger {
+  background: linear-gradient(
+    135deg,
+    rgba(211, 47, 47, 0.95),
+    rgba(239, 83, 80, 0.95)
+  );
+  color: white;
+  border-color: rgba(198, 40, 40, 0.3);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+}
+
+[data-theme="light"] .glass-btn-danger:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(198, 40, 40, 1),
+    rgba(229, 57, 53, 1)
+  );
+  box-shadow: 0 6px 16px rgba(211, 47, 47, 0.4);
+}
+
+[data-theme="light"] .glass-btn-danger:active,
+[data-theme="light"] .glass-btn-danger:focus-visible {
+  background: linear-gradient(
+    135deg,
+    rgba(183, 28, 28, 1),
+    rgba(211, 47, 47, 1)
+  );
+  box-shadow: 0 0 0 3px rgba(239, 83, 80, 0.3),
+    0 6px 16px rgba(211, 47, 47, 0.5);
+}
+/* ============================================
+   ИНПУТЫ - ПРОЗРАЧНЫЕ С GLASS ВЫДЕЛЕНИЕМ
+   ============================================ */
+.glass-input {
+  background: var(--glass-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 14px;
+  width: 100%;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.glass-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background: var(--glass-focus);
+  box-shadow: 0 0 0 3px var(--primary-light),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+}
+
+.glass-input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+select.glass-input {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+select.glass-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: var(--glass-focus);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+select.glass-input option {
+  background: var(--surface-color);
+  color: var(--text-primary);
+  padding: 12px;
+}
+
+@media (max-width: 480px) {
+  select.glass-input {
+    font-size: 16px;
+  }
+}
+
+/* ============================================
+   ССЫЛКИ С GLASS ВЫДЕЛЕНИЕМ
+   ============================================ */
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  padding: 2px 4px;
+  border-radius: 4px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:hover {
+  background: var(--glass-focus);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+a:focus-visible {
+  outline: none;
+  background: var(--glass-focus);
+  box-shadow: 0 0 0 2px var(--primary-light);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header-card {
+  overflow: hidden;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .header-card {
+    padding: 10px 14px !important;
+  }
+
+  .header-content {
+    flex-wrap: nowrap !important;
+    gap: 8px !important;
+  }
+
+  .header-info h1 {
+    font-size: 18px !important;
+    margin-bottom: 1px !important;
+  }
+
+  .header-info p {
+    font-size: 11px !important;
+  }
+
+  .header-actions {
+    width: auto !important;
+    margin-top: 0 !important;
+    gap: 4px !important;
+  }
+
+  .glass-btn.btn-icon {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .glass-btn.btn-icon svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+@media (max-width: 360px) {
+  .header-card {
+    padding: 8px 12px !important;
+  }
+
+  .header-info h1 {
+    font-size: 16px !important;
+  }
+
+  .header-info p {
+    font-size: 10px !important;
+  }
+
+  .header-actions {
+    gap: 3px !important;
+  }
+
+  .glass-btn.btn-icon {
+    width: 32px !important;
+    height: 32px !important;
+  }
+}
+
+/* ============================================
+   DATE SLIDER - ИСПРАВЛЕННОЕ ВЫРАВНИВАНИЕ
+   ============================================ */
+.date-slider-container {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.date-slider-container::-webkit-scrollbar {
+  display: none !important;
+}
+
+@keyframes slideFromRight {
+  0% {
+    opacity: 0.5;
+    transform: translateX(30px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slideFromLeft {
+  0% {
+    opacity: 0.5;
+    transform: translateX(-30px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+/* ============================================
+   DATE SLIDER - ПРЯМОУГОЛЬНАЯ ВЫБРАННАЯ ДАТА
+   ============================================ */
+.date-button {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent;
+  color: var(--text-primary);
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+
+.date-button:hover {
+  background: var(--surface-hover);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-strong);
+}
+
+.date-button.selected,
+.date-button[data-selected="true"] {
+  background: var(--glass-highlight) !important;
+  border: 1px solid var(--glass-border) !important;
+  backdrop-filter: blur(15px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(15px) saturate(180%) !important;
+  box-shadow: 0 4px 16px var(--shadow-strong),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  color: var(--text-primary) !important;
+  font-weight: 700;
+  transform: scale(1.05);
+}
+
+.date-button:active {
+  transform: scale(0.98);
+}
+
+.date-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--primary-light), 0 4px 16px var(--shadow-strong);
+}
+
+/* ============================================
+   ПРОГРЕСС-БАР
+   ============================================ */
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 5px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 3px var(--shadow-color);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================
+   АНИМАЦИИ
+   ============================================ */
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: slideIn 0.3s ease;
+}
+
+.delay-1 {
+  animation-delay: 0.1s;
+  animation-fill-mode: both;
+}
+.delay-2 {
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+}
+
+/* ============================================
+   SKELETON LOADER (Мерцание)
+   ============================================ */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--glass-bg) 0%,
+    var(--surface-hover) 50%,
+    var(--glass-bg) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+/* ============================================
+   СКРОЛЛБАР
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+  backdrop-filter: blur(4px);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+.date-slider-container::-webkit-scrollbar {
+  display: none;
+}
+
+.date-slider-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ============================================
+   МОДАЛЬНЫЕ ОКНА
+   ============================================ */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(30px) saturate(180%);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideIn 0.3s ease;
+  box-shadow: 0 20px 60px var(--shadow-strong);
+}
+
+/* ============================================
+   TOAST УВЕДОМЛЕНИЯ
+   ============================================ */
+.toast {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  min-width: 300px;
+  max-width: 500px;
+  animation: slideIn 0.3s ease;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 32px var(--shadow-strong);
+}
+
+/* ============================================
+   НИЖНЯЯ НАВИГАЦИЯ (МОБИЛЬНЫЙ UI)
+   ============================================ */
+.layout-content {
+  padding-bottom: calc(84px + env(safe-area-inset-bottom));
+}
+
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 64px;
+  padding: 0 8px calc(env(safe-area-inset-bottom));
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+}
+
+.bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 6px 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.2s ease;
+}
+
+.bottom-nav-item[data-active="true"] {
+  color: var(--primary-color);
+}
+
+.bottom-nav-fab-slot {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom-nav-fab {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: linear-gradient(135deg, var(--primary-color), #00b4d8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform: translateY(-22px);
+  box-shadow: 0 6px 18px rgba(0, 136, 204, 0.45);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bottom-nav-fab:active {
+  transform: translateY(-22px) scale(0.94);
+  box-shadow: 0 4px 12px rgba(0, 136, 204, 0.4);
+}
+
+/* ============================================
+   RECHARTS СТИЛИ
+   ============================================ */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: var(--border-color);
+  opacity: 0.5;
+}
+
+.recharts-text {
+  fill: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.recharts-tooltip-wrapper {
+  outline: none;
+}
+
+.recharts-default-tooltip {
+  background: var(--glass-bg) !important;
+  border: 1px solid var(--glass-border) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-radius: 12px !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 8px 24px var(--shadow-strong) !important;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ
+   ============================================ */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .container {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-value {
+    font-size: 20px;
+  }
+}
+
+/* ============================================
+   УТИЛИТЫ
+   ============================================ */
+.text-center {
+  text-align: center;
+}
+.text-secondary {
+  color: var(--text-secondary);
+}
+.text-primary {
+  color: var(--text-primary);
+}
+.mb-16 {
+  margin-bottom: 16px;
+}
+.mt-16 {
+  margin-top: 16px;
+}
+.p-16 {
+  padding: 16px;
+}
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.gap-8 {
+  gap: 8px;
+}
+.gap-12 {
+  gap: 12px;
+}
+.gap-16 {
+  gap: 16px;
+}
+.w-full {
+  width: 100%;
+}
+
+/* ============================================
+   КНОПКА ДОБАВИТЬ ЗАПИСЬ - УЛУЧШЕННЫЙ СТИЛЬ
+   ============================================ */
+/* Переливание градиента */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Бегущий блик (shimmer) - МЕДЛЕННЕЕ */
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  50%,
+  100% {
+    left: 100%;
+  }
+}
+
+/* Стили для кнопки добавить запись - более спокойные цвета */
+.add-entry-button {
+  background: linear-gradient(
+    135deg,
+    rgba(76, 150, 90, 0.55) 0%,
+    rgba(66, 140, 80, 0.5) 25%,
+    rgba(86, 160, 100, 0.55) 50%,
+    rgba(56, 130, 70, 0.55) 75%,
+    rgba(76, 150, 90, 0.55) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 20s ease infinite; /* ← УВЕЛИЧЕНО В 5 РАЗ */
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(66, 140, 80, 0.25), 0 2px 8px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3), inset 0 -1px 0 rgba(0, 0, 0, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.add-entry-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(66, 140, 80, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1), inset 0 0 30px rgba(255, 255, 255, 0.1);
+}
+
+.add-entry-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* frontend/src/index.css - обновите медиа-запросы для stats-grid */
+
+/* ============================================
+   СТАТИСТИКА - СЕТКА
+   ============================================ */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.stat-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(15px) saturate(150%);
+  -webkit-backdrop-filter: blur(15px) saturate(150%);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px var(--shadow-strong);
+  background: var(--surface-hover);
+}
+
+.stat-card:focus-visible {
+  background: var(--glass-focus);
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light), 0 8px 20px var(--shadow-strong);
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  text-shadow: 0 1px 2px var(--shadow-color);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+/* ============================================
+   АДАПТИВНОСТЬ - СЕТКА КБЖУ
+   ============================================ */
+
+/* Планшет - 2 колонки */
+@media (max-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .container {
+    padding: 12px;
+  }
+}
+
+/* Мобильный - 2 колонки (2x2 сетка) */
+@media (max-width: 480px) {
+  .stats-grid {
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ) !important; /* ← ИСПРАВЛЕНО: было 1fr */
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 14px 10px;
+  }
+
+  .stat-value {
+    font-size: 22px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+  }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 360px) {
+  .stats-grid {
+    gap: 8px;
+  }
+
+  .stat-card {
+    padding: 12px 8px;
+  }
+
+  .stat-value {
+    font-size: 20px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+  }
+}
+.nutrient-grid-compact {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.input-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.nutrient-grid-compact {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+/* ============================================
+СТАТИСТИКА ВЕСА - АДАПТИВНАЯ СЕТКА
+============================================ */
+.weight-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* Планшет - 2 колонки */
+@media (max-width: 768px) {
+  .weight-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Мобильный - 2 колонки (2x2 сетка) */
+@media (max-width: 480px) {
+  .weight-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
+
+.stat-subtitle {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+@keyframes shrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+/* ============================================
+   TOAST УВЕДОМЛЕНИЯ
+============================================ */
+.undo-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  min-width: 300px;
+  max-width: 500px;
+  width: calc(100% - 40px);
+  animation: slideDown 0.3s ease;
+}
+
+.undo-toast-content {
+  padding: 16px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.undo-toast-btn {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--glass-highlight);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.undo-toast-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary-color);
+}
+
+.undo-toast-close {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.undo-toast-close:hover {
+  background: var(--glass-highlight);
+  border-color: var(--glass-border);
+  color: var(--text-primary);
+}
+
+.undo-toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--primary-color);
+  animation: shrink 5s linear forwards;
+  border-radius: 0 0 0 12px;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes shrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}

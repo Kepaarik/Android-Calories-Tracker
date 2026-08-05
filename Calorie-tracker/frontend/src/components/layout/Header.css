@@ -1,0 +1,21 @@
+.app-header {
+  padding: 16px;
+  margin-bottom: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-header-name {
+  font-size: 24px;
+  margin: 0;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.app-header-date {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}

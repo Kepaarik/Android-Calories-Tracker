@@ -1,0 +1,30 @@
+.dashboard-page-container {
+  padding: 16px;
+}
+
+.dashboard-page-date-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.dashboard-page-date-action-btn {
+  flex: 1;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.dashboard-page-modal-text {
+  font-size: 15px;
+  margin-bottom: 24px;
+}
+
+.dashboard-page-modal-actions {
+  display: flex;
+  gap: 12px;
+}

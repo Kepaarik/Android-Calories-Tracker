@@ -2,18 +2,21 @@ package com.calorietracker.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Light Theme Colors (Enhanced Glass)
+// ============================================
+// LIGHT THEME - EXACT MATCH WITH WEB APP
+// ============================================
 val LightBackground = Color(0xFFE8F4F8)
-val LightSurface = Color(0x99FFFFFF) // 60% opacity
+val LightSurface = Color(0xB3FFFFFF) // 70% opacity
 val LightSurfaceHover = Color(0xE6FFFFFF) // 90% opacity
 val LightPrimary = Color(0xFF0077B3)
-val LightPrimaryLight = Color(0x330077B3)
+val LightPrimaryLight = Color(0x330077B3) // 20% primary
 val LightTextPrimary = Color(0xFF1A1A2E)
 val LightTextSecondary = Color(0xFF6B7280)
 val LightBorder = Color(0x1A000000) // 10% black
 val LightGlassBg = Color(0x99FFFFFF) // 60% opacity
 val LightGlassBorder = Color(0x1F000000) // 12% black
 val LightGlassFocus = Color(0x400077B3) // 25% primary
+val LightGlassHighlight = Color(0xD9FFFFFF) // 85% opacity
 
 // Dark Theme Colors
 val DarkBackground = Color(0xFF0F0F1E)
@@ -27,8 +30,9 @@ val DarkBorder = Color(0x1FFFFFFF) // 12% white
 val DarkGlassBg = Color(0x59252542) // 35% opacity
 val DarkGlassBorder = Color(0x1FFFFFFF) // 12% white
 val DarkGlassFocus = Color(0x4000A8CC) // 25% primary
+val DarkGlassHighlight = Color(0x26FFFFFF) // 15% opacity
 
-// Accent Colors
+// Accent Colors - Exact match with web app
 val SuccessColor = Color(0xFF2E7D32)
 val SuccessLight = Color(0xFF66BB6A)
 val DangerColor = Color(0xFFE53935)
@@ -38,12 +42,21 @@ val WarningLight = Color(0xFFFFA726)
 val InfoColor = Color(0xFF1976D2)
 val InfoLight = Color(0xFF42A5F5)
 
-// Macro Colors
+// Macro Colors - Exact match with web app
 val ProteinColor = Color(0xFF1976D2)
 val CarbsColor = Color(0xFFFF9800)
 val FatsColor = Color(0xFFE53935)
 
 // Shadow Colors
 val LightShadow = Color(0x1F000000) // 12% black
+val LightShadowStrong = Color(0x38000000) // 22% black
 val DarkShadow = Color(0x4D000000) // 30% black
 val DarkShadowStrong = Color(0x80000000) // 50% black
+
+// Active/Selected state colors
+val LightActiveBg = Color(0x2E0077B3) // 18% primary
+val LightActiveBorder = Color(0x990077B3) // 60% primary
+val LightActiveText = Color(0xFF0066A8)
+val DarkActiveBg = Color(0x4000A8CC) // 25% primary
+val DarkActiveBorder = Color(0xB300A8CC) // 70% primary
+val DarkActiveText = Color(0xFF4DD0E1)

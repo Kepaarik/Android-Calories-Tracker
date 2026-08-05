@@ -1,0 +1,105 @@
+.widget-item {
+  padding: 12px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: grab;
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+  opacity: 1;
+  transform: scale(1);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.widget-item[data-over="true"] {
+  background: var(--glass-focus);
+  border: 2px dashed var(--primary-color);
+  transform: scale(1.02);
+  box-shadow: 0 4px 16px rgba(0, 136, 204, 0.2);
+}
+
+.widget-item[data-dragging="true"] {
+  background: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  opacity: 0.6;
+  transform: scale(0.95);
+  z-index: 1000;
+  box-shadow: 0 8px 24px rgba(0, 136, 204, 0.4);
+}
+
+.widget-drag-handle {
+  cursor: grab;
+  padding: 4px;
+  color: var(--text-secondary);
+}
+
+.widget-item[data-dragging="true"] .widget-drag-handle {
+  color: white;
+}
+
+.widget-icon-wrapper {
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+}
+
+.widget-item[data-dragging="true"] .widget-icon-wrapper {
+  color: white;
+}
+
+.widget-label {
+  flex: 1;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.widget-item[data-dragging="true"] .widget-label {
+  color: white;
+}
+
+.widget-toggle-btn {
+  width: 48px;
+  height: 24px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.2s ease;
+  flex-shrink: 0;
+  background: var(--border-color);
+}
+
+.widget-toggle-btn[data-visible="true"] {
+  background: var(--primary-color);
+}
+
+.widget-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  transition: left 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.widget-toggle-btn[data-visible="true"] .widget-toggle-thumb {
+  left: 26px;
+}
+
+.widgets-list-container {
+  position: relative;
+}

@@ -1,0 +1,27 @@
+.calorie-adjuster-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.calorie-adjuster-value-wrapper {
+  flex: 1;
+  text-align: center;
+}
+
+.calorie-adjuster-value {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.calorie-adjuster-unit {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.calorie-adjuster-hint {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  text-align: center;
+}
