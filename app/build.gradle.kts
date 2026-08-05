@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.dagger.hilt.android")
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
     kotlin("plugin.serialization") version "1.9.22"
 }
 
@@ -122,6 +123,18 @@ dependencies {
     // Google Fit API for Activity Tracking
     implementation("com.google.android.gms:play-services-fitness:21.1.0")
     implementation("com.google.android.gms:play-services-auth:20.7.0")
+
+    // Firebase Cloud Messaging (FCM)
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-messaging-ktx")
+    implementation("com.google.firebase:firebase-analytics-ktx")
+
+    // WorkManager
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
+
+    // Vico Charts for Statistics
+    implementation("com.patrykandpatrick.vico:compose:1.14.0")
+    implementation("com.patrykandpatrick.vico:compose-m3:1.14.0")
 
     // Coil for Image Loading
     implementation("io.coil-kt:coil-compose:2.5.0")

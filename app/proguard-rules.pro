@@ -49,3 +49,25 @@
     <fields>;
     <init>(...);
 }
+
+# Vico Charts
+-keep class com.patrykandpatrick.vico.** { *; }
+-dontwarn com.patrykandpatrick.vico.**
+
+# Firebase Cloud Messaging
+-keep class com.google.firebase.messaging.** { *; }
+-dontwarn com.google.firebase.messaging.**
+
+# WorkManager
+-keep class androidx.work.** { *; }
+-keep class * extends androidx.work.ListenableWorker {
+    public <init>(...);
+}
+
+# Notification Helper
+-keep class com.calorietracker.util.NotificationHelper { *; }
+-keep class com.calorietracker.worker.** { *; }
+
+# Telegram Auth
+-keep class org.telegram.** { *; }
+-dontwarn org.telegram.**
