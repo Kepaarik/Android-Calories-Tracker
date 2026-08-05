@@ -3,6 +3,7 @@ package com.calorietracker.di
 import android.content.Context
 import androidx.room.Room
 import com.calorietracker.data.local.*
+import com.calorietracker.data.local.dao.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,25 +31,32 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideFoodEntryDao(database: CalorieTrackerDatabase): FoodEntryDao {
-        return database.foodEntryDao()
+    fun provideUserDao(database: CalorieTrackerDatabase): UserDao {
+        return database.userDao()
     }
 
     @Provides
     @Singleton
-    fun provideDailyGoalDao(database: CalorieTrackerDatabase): DailyGoalDao {
-        return database.dailyGoalDao()
+    fun provideProductDao(database: CalorieTrackerDatabase): ProductDao {
+        return database.productDao()
     }
 
     @Provides
     @Singleton
-    fun provideActivityRecordDao(database: CalorieTrackerDatabase): ActivityRecordDao {
-        return database.activityRecordDao()
+    fun provideDiaryEntryDao(database: CalorieTrackerDatabase): DiaryEntryDao {
+        return database.diaryEntryDao()
     }
 
     @Provides
     @Singleton
-    fun provideTelegramUserDao(database: CalorieTrackerDatabase): TelegramUserDao {
-        return database.telegramUserDao()
+    fun provideWeightEntryDao(database: CalorieTrackerDatabase): WeightEntryDao {
+        return database.weightEntryDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideWaterIntakeDao(database: CalorieTrackerDatabase): WaterIntakeDao {
+        return database.waterIntakeDao()
     }
 }
+
