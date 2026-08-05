@@ -90,3 +90,15 @@ class ProductsViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(error = null)
     }
 }
+
+data class ProductsUiState(
+    val isLoading: Boolean = false,
+    val searchQuery: String = "",
+    val searchResults: List<Product> = emptyList(),
+    val selectedProduct: Product? = null,
+    val selectedMealType: MealType = MealType.BREAKFAST,
+    val selectedWeightGrams: Int = 100,
+    val error: String? = null
+) {
+    val products: List<Product> = searchResults
+}

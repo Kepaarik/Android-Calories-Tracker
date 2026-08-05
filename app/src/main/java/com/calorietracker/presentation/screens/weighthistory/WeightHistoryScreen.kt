@@ -28,6 +28,17 @@ fun WeightHistoryScreen(
     onAddWeightEntry: () -> Unit
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    var showAddDialog by remember { mutableStateOf(false) }
+
+    if (showAddDialog) {
+        AddWeightEntryDialog(
+            onDismissRequest = { showAddDialog = false },
+            onConfirm = { weight, date ->
+                viewModel.addWeightEntry(weight, date)
+                showAddDialog = false
+            }
+        )
+    }
 
     Scaffold(
         topBar = {
@@ -42,7 +53,7 @@ fun WeightHistoryScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = onAddWeightEntry) {
+                    IconButton(onClick = { showAddDialog = true }) {
                         Icon(
                             imageVector = Icons.Default.Add,
                             contentDescription = "Добавить запись"
@@ -71,7 +82,8 @@ fun WeightHistoryScreen(
                 
                 uiState.weightEntries.isEmpty() -> {
                     EmptyWeightHistory(
-                        modifier = Modifier.align(Alignment.Center)
+                        modifier = Modifier.align(Alignment.Center),
+                        onAddClick = { showAddDialog = true }
                     )
                 }
                 
@@ -88,7 +100,10 @@ fun WeightHistoryScreen(
 }
 
 @Composable
-fun EmptyWeightHistory(modifier: Modifier = Modifier) {
+fun EmptyWeightHistory(
+    modifier: Modifier = Modifier,
+    onAddClick: () -> Unit
+) {
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -105,6 +120,10 @@ fun EmptyWeightHistory(modifier: Modifier = Modifier) {
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
         )
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = onAddClick) {
+            Text("Добавить запись")
+        }
     }
 }
 

@@ -108,7 +108,7 @@ fun NavGraph(
             WeightHistoryScreen(
                 onNavigateBack = { navController.popBackStack() },
                 onAddWeightEntry = {
-                    // TODO: Show dialog to add weight entry
+                    // Обработано внутри экрана через диалог
                 }
             )
         }
