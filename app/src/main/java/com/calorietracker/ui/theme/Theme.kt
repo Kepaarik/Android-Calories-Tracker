@@ -13,6 +13,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+enum class ThemeType {
+    LIGHT,
+    DARK,
+    SYSTEM
+}
+
 private val DarkColorScheme = darkColorScheme(
     primary = DarkPrimary,
     secondary = InfoLight,
@@ -45,10 +51,16 @@ private val LightColorScheme = lightColorScheme(
 
 @androidx.compose.runtime.Composable
 fun CalorieTrackerTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    themeType: ThemeType = ThemeType.SYSTEM,
     @Suppress("UNUSED_PARAMETER") dynamicColor: Boolean = false,
     content: @androidx.compose.runtime.Composable () -> Unit
 ) {
+    val darkTheme = when (themeType) {
+        ThemeType.LIGHT -> false
+        ThemeType.DARK -> true
+        ThemeType.SYSTEM -> isSystemInDarkTheme()
+    }
+
     val colorScheme = when {
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
