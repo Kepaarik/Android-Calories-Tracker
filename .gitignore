@@ -3,20 +3,17 @@
 *.class
 *.o
 *.obj
-*.out
-*.dll
 *.so
 *.a
+*.dll
+*.exe
+*.out
+build/
+dist/
 
 # Dependencies
-node_modules/
-venv/
-.venv/
-__pycache__/
-.mypy_cache/
-.pytest_cache/
-target/
 .gradle/
+target/
 
 # Logs and temp files
 *.log
@@ -29,8 +26,11 @@ target/
 *.env.*
 
 # Editors
-.vscode/
 .idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
 
 # System files
 .DS_Store
@@ -40,6 +40,19 @@ Thumbs.db
 coverage/
 htmlcov/
 .coverage
+
+# Python specific (if applicable)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+venv/
+.venv/
+
+# Node.js specific (if applicable)
+node_modules/
 
 # Compressed files
 *.zip

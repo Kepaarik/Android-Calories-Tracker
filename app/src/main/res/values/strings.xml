@@ -46,4 +46,25 @@
     <string name="success">Успешно</string>
     <string name="no_data">Нет данных</string>
     <string name="sync_with_telegram">Синхронизировать с Telegram</string>
+    
+    <!-- Navigation -->
+    <string name="dashboard">Дневник</string>
+    <string name="products">Продукты</string>
+    <string name="statistics">Статистика</string>
+    
+    <!-- UI Components -->
+    <string name="toggle_theme">Переключить тему</string>
+    <string name="delete_entry">Удалить запись</string>
+    <string name="add_product">Добавить продукт</string>
+    <string name="add_weight">Добавить вес</string>
+    <string name="increase_water">Увеличить потребление воды</string>
+    <string name="decrease_water">Уменьшить потребление воды</string>
+    <string name="search">Поиск</string>
+    <string name="breakfast">Завтрак</string>
+    <string name="lunch">Обед</string>
+    <string name="dinner">Ужин</string>
+    <string name="snack">Перекус</string>
+    <string name="no_entries">Нет записей</string>
+    <string name="add_first_entry">Добавьте первый продукт в дневник</string>
+    <string name="undo">Отменить</string>
 </resources>
