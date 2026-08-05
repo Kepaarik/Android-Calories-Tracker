@@ -7,12 +7,13 @@ object WeightEntryMapper {
     
     fun WeightEntryEntity.toDomain(): WeightEntry = WeightEntry(
         id = id,
+        userId = userId,
         weightKg = weightKg,
         date = date,
         createdAt = createdAt
     )
     
-    fun WeightEntry.toEntity(userId: Int): WeightEntryEntity = WeightEntryEntity(
+    fun WeightEntry.toEntity(): WeightEntryEntity = WeightEntryEntity(
         id = id,
         userId = userId,
         weightKg = weightKg,

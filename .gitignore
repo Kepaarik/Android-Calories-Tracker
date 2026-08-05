@@ -9,12 +9,52 @@
 *.a
 *.pyc
 __pycache__/
-*.pyo
-*.pyd
-*.jar
-*.war
+
+# Dependencies
+node_modules/
+venv/
+.venv/
+target/
+.gradle/
+.mypy_cache/
+.pytest_cache/
+dist/
+build/
+
+# Android specific
+*.apk
+*.aar
+*.dex
+local.properties
+.gradle/
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Environment
+.env
+.env.local
+.env.*
+
+# Coverage reports
+coverage/
+htmlcov/
+.coverage
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Compressed files
 *.zip
-*.tar.gz
+*.gz
 *.tar
 *.tgz
 *.bz2
@@ -31,38 +71,8 @@ __pycache__/
 *.Z
 *.lz
 *.lzo
-
-# Dependencies
-node_modules/
-venv/
-.venv/
-.env
-.env.local
-.env.*
-target/
-.gradle/
-.mypy_cache/
-.pytest_cache/
-coverage/
-htmlcov/
-.coverage
-
-# Build directories
-build/
-dist/
-out/
-
-# IDE specific
-.vscode/
-.idea/
-*.swp
-*.swo
-*.tmp
-
-# System files
-.DS_Store
-Thumbs.db
-
-# Logs
-*.log
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
 ```
