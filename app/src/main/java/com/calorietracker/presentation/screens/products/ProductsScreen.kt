@@ -22,21 +22,45 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.calorietracker.domain.model.MealType
 import com.calorietracker.domain.model.Product
 import com.calorietracker.presentation.components.common.EmptyState
 import com.calorietracker.presentation.components.common.ErrorScreen
 import com.calorietracker.presentation.components.common.GlassCard
 import com.calorietracker.presentation.components.common.LoadingIndicator
+import com.calorietracker.presentation.components.products.ProductDetailsDialog
 import com.calorietracker.presentation.components.products.ProductListItem
 import com.calorietracker.presentation.components.products.ProductSearchBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductsScreen(
-    onProductSelected: (Product) -> Unit,
+    onProductSelected: (Product, MealType, Int) -> Unit,
     viewModel: ProductsViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+    var showAddDialog by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
+    var selectedProduct by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf<Product?>(null) }
+    
+    // Диалог добавления продукта
+    if (showAddDialog && selectedProduct != null) {
+        ProductDetailsDialog(
+            product = selectedProduct!!,
+            selectedMealType = uiState.selectedMealType,
+            weightGrams = uiState.selectedWeightGrams,
+            onMealTypeChange = viewModel::onMealTypeChange,
+            onWeightChange = viewModel::onWeightChange,
+            onAddToDiary = {
+                onProductSelected(selectedProduct!!, uiState.selectedMealType, uiState.selectedWeightGrams)
+                showAddDialog = false
+                selectedProduct = null
+            },
+            onDismiss = {
+                showAddDialog = false
+                selectedProduct = null
+            }
+        )
+    }
     
     when {
         uiState.isLoading && uiState.products.isEmpty() -> {
@@ -53,7 +77,10 @@ fun ProductsScreen(
                 searchQuery = uiState.searchQuery,
                 products = uiState.products,
                 onSearchQueryChange = viewModel::onSearchQueryChange,
-                onProductSelected = onProductSelected
+                onProductSelected = { product ->
+                    selectedProduct = product
+                    showAddDialog = true
+                }
             )
         }
     }
