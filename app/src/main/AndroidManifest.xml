@@ -14,12 +14,8 @@
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
     
-    <!-- Storage for potential exports -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" 
-        android:maxSdkVersion="32" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" 
-        android:maxSdkVersion="32"
-        tools:ignore="ScopedStorage" />
+    <!-- Note: Storage permissions removed for Android 13+ compatibility 
+         Use MediaStore or SAF for file operations instead -->
 
     <application
         android:name=".CalorieTrackerApp"

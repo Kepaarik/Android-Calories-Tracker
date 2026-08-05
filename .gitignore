@@ -1,74 +1,38 @@
-```
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
+# Android build artifacts
+*.apk
+*.aar
+*.dex
+
+# Android cache
+.cache/
+
+# Gradle
+.gradle/
 build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
 
-# Virtual Environment
-venv/
-ENV/
-env/
-.venv/
-.env/
+# Local configuration file (sdk path, etc)
+local.properties
 
-# Testing
-.pytest_cache/
-.coverage
-htmlcov/
-.nyc_output/
-coverage/
+# Android Studio Navigation editor temp files
+.navigation/
 
-# IDE
-.vscode/
+# Android Studio captures folder
+captures/
+
+# IntelliJ IDEA
 .idea/
-*.swp
-*.swo
-*.tmp
+*.iml
+*.iws
+*.ipr
 
-# OS
-.DS_Store
-Thumbs.db
+# Generated files
+gen/
+out/
 
-# Logs
+# Log Files
 *.log
 
-# Environment variables
+# Local configuration
 .env
 .env.local
 *.env.*
-
-# Node.js (for frontend)
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Frontend build artifacts
-frontend/dist/
-frontend/build/
-
-# Database
-*.db
-*.db-journal
-
-# Docker
-.dockerenv
-```
