@@ -21,7 +21,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -483,27 +482,26 @@ class HomeViewModel @Inject constructor(
     private val goalRepository: com.calorietracker.data.repository.GoalRepository
 ) : ViewModel() {
 
-    val uiState = MutableStateFlow(HomeUiState())
+    private val _uiState = mutableStateOf(HomeUiState())
+    val uiState: State<HomeUiState> = _uiState
 
     init {
         loadTodayData()
     }
 
     private fun loadTodayData() {
-        viewModelScope.launch {
-            // Load data from repositories
-            // This is a simplified example
-            uiState.value = uiState.value.copy(
-                consumed = 1250,
-                protein = 85,
-                fat = 45,
-                carbs = 150,
-                recentEntries = listOf(
-                    RecentEntry("Овсянка", 350, "08:30"),
-                    RecentEntry("Яблоко", 95, "10:15"),
-                    RecentEntry("Куриная грудка", 165, "13:00")
-                )
+        // Load data from repositories synchronously
+        // This is a simplified example with mock data
+        _uiState.value = HomeUiState(
+            consumed = 1250,
+            protein = 85,
+            fat = 45,
+            carbs = 150,
+            recentEntries = listOf(
+                RecentEntry("Овсянка", 350, "08:30"),
+                RecentEntry("Яблоко", 95, "10:15"),
+                RecentEntry("Куриная грудка", 165, "13:00")
             )
-        }
+        )
     }
 }
