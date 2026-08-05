@@ -1,45 +1,74 @@
-# Compiled and build artifacts
-*.class
-*.o
-*.obj
-*.out
-*.dll
-*.so
-*.a
-*.pyc
+```
+# Python
 __pycache__/
-
-# Dependencies
-node_modules/
-venv/
-.venv/
-.env
-.env.local
-.env.*
-
-# Build directories
-dist/
+*.py[cod]
+*$py.class
+*.so
+.Python
 build/
-target/
-.gradle/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 
-# Editors
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+.env/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.nyc_output/
+coverage/
+
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*.tmp
 
-# System files
+# OS
 .DS_Store
 Thumbs.db
 
-# Logs and coverage
+# Logs
 *.log
-*.tmp
-coverage/
-htmlcov/
-.coverage
 
-# Cache directories
-.mypy_cache/
-.pytest_cache/
+# Environment variables
+.env
+.env.local
+*.env.*
+
+# Node.js (for frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Frontend build artifacts
+frontend/dist/
+frontend/build/
+
+# Database
+*.db
+*.db-journal
+
+# Docker
+.dockerenv
+```

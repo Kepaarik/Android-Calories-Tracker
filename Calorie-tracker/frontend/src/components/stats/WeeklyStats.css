@@ -1,0 +1,78 @@
+.weekly-stats-card {
+  padding: 20px;
+}
+
+.weekly-stats-skeleton-margin {
+  margin-bottom: 20px;
+}
+
+.weekly-stats-skeleton-chart {
+  margin-bottom: 20px;
+  border-radius: 12px;
+}
+
+.weekly-stats-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.weekly-stats-tooltip {
+  padding: 12px;
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  min-width: 150px;
+}
+
+.weekly-stats-tooltip-date {
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+}
+
+.weekly-stats-tooltip-calories {
+  font-size: 12px;
+  color: var(--danger-color);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.weekly-stats-tooltip-proteins {
+  font-size: 11px;
+  color: var(--macro-protein-color);
+  margin-bottom: 3px;
+}
+
+.weekly-stats-tooltip-fats {
+  font-size: 11px;
+  color: var(--warning-color);
+  margin-bottom: 3px;
+}
+
+.weekly-stats-tooltip-carbs {
+  font-size: 11px;
+  color: var(--success-color);
+}
+
+.weekly-stats-title {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: var(--text-primary);
+}
+
+.weekly-stats-chart-wrapper {
+  height: 250px;
+  margin-bottom: 20px;
+}
+
+.weekly-stats-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}

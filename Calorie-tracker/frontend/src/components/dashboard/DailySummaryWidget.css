@@ -1,0 +1,79 @@
+.daily-summary-card {
+  padding: 20px;
+}
+
+.daily-summary-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.daily-summary-skeleton-progress {
+  margin-bottom: 20px;
+  border-radius: 6px;
+}
+
+.daily-summary-title {
+  font-size: 18px;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.daily-summary-goal {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.daily-summary-progress-section {
+  margin-bottom: 20px;
+}
+
+.daily-summary-progress-bar {
+  height: 12px;
+  display: flex;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.daily-summary-progress-segment {
+  transition: width 0.3s ease;
+}
+
+.daily-summary-progress-protein {
+  background: var(--macro-protein-color);
+}
+
+.daily-summary-progress-fat {
+  background: var(--warning-color);
+}
+
+.daily-summary-progress-carb {
+  background: var(--success-color);
+}
+
+.daily-summary-progress-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+
+.daily-summary-legend {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+  font-size: 11px;
+}
+
+.daily-summary-legend-protein {
+  color: var(--macro-protein-color);
+}
+
+.daily-summary-legend-fat {
+  color: var(--warning-color);
+}
+
+.daily-summary-legend-carb {
+  color: var(--success-color);
+}

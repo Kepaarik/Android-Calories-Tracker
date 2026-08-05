@@ -10,6 +10,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -286,12 +287,13 @@ fun HomeScreen(
                 }
             }
             
-            // Bottom Navigation
+            // Bottom Navigation - точно как в оригинале с FAB кнопкой
             GlassNavigationBar(
                 onNavigateToHome = { },
-                onNavigateToAddFood = onNavigateToAddFood,
-                onNavigateToActivity = onNavigateToActivity,
+                onNavigateToProducts = { /* навигация к продуктам */ },
+                onNavigateToStatistics = { /* навигация к статистике */ },
                 onNavigateToProfile = onNavigateToProfile,
+                onAddClick = onNavigateToAddFood,
                 isDarkTheme = isDarkTheme
             )
         }
@@ -369,24 +371,56 @@ private fun ActionGlassButton(
 @Composable
 private fun GlassNavigationBar(
     onNavigateToHome: () -> Unit,
-    onNavigateToAddFood: () -> Unit,
-    onNavigateToActivity: () -> Unit,
+    onNavigateToProducts: () -> Unit,
+    onNavigateToStatistics: () -> Unit,
     onNavigateToProfile: () -> Unit,
+    onAddClick: () -> Unit,
     isDarkTheme: Boolean
 ) {
-    GlassCard(
-        modifier = Modifier.fillMaxWidth(),
-        darkTheme = isDarkTheme,
-        padding = "8px"
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(
+                color = if (isDarkTheme) DarkSurface else LightSurface,
+                shape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)
+            )
+            .padding(horizontal = 8.dp, vertical = 8.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            NavGlassItem(Icons.Default.Home, "Главная", true, onNavigateToHome, isDarkTheme)
-            NavGlassItem(Icons.Default.Add, "Добавить", false, onNavigateToAddFood, isDarkTheme)
-            NavGlassItem(Icons.Default.FitnessCenter, "Активность", false, onNavigateToActivity, isDarkTheme)
+            // Левая секция: Главная, Продукты
+            NavGlassItem(Icons.Default.Home, "Главная", false, onNavigateToHome, isDarkTheme)
+            NavGlassItem(Icons.Default.Inventory2, "Продукты", false, onNavigateToProducts, isDarkTheme)
+            
+            // FAB кнопка в центре со смещением вверх как в оригинале
+            Box(
+                modifier = Modifier
+                    .size(64.dp)
+                    .offset(y = (-20).dp)
+            ) {
+                FloatingActionButton(
+                    onClick = onAddClick,
+                    containerColor = if (isDarkTheme) DarkPrimary else LightPrimary,
+                    contentColor = Color.White,
+                    modifier = Modifier.size(56.dp),
+                    elevation = FloatingActionButtonDefaults.elevation(
+                        defaultElevation = 8.dp,
+                        pressedElevation = 12.dp
+                    )
+                ) {
+                    Icon(
+                        Icons.Default.Add,
+                        contentDescription = "Добавить",
+                        modifier = Modifier.size(28.dp)
+                    )
+                }
+            }
+            
+            // Правая секция: Статистика, Профиль
+            NavGlassItem(Icons.Default.BarChart, "Статистика", false, onNavigateToStatistics, isDarkTheme)
             NavGlassItem(Icons.Default.Person, "Профиль", false, onNavigateToProfile, isDarkTheme)
         }
     }
