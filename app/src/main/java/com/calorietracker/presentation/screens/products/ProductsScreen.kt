@@ -9,9 +9,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -23,9 +25,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.calorietracker.domain.model.Product
 import com.calorietracker.presentation.components.common.EmptyState
 import com.calorietracker.presentation.components.common.ErrorScreen
-import com.calorietracker.presentation.components.common.GlassButton
 import com.calorietracker.presentation.components.common.GlassCard
 import com.calorietracker.presentation.components.common.LoadingIndicator
+import com.calorietracker.presentation.components.products.ProductListItem
+import com.calorietracker.presentation.components.products.ProductSearchBar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -39,9 +42,9 @@ fun ProductsScreen(
         uiState.isLoading && uiState.products.isEmpty() -> {
             LoadingIndicator(message = "Поиск продуктов...")
         }
-        uiState.errorMessage != null -> {
+        uiState.error != null -> {
             ErrorScreen(
-                message = uiState.errorMessage!!,
+                message = uiState.error!!,
                 onRetry = { viewModel.searchProducts(uiState.searchQuery) }
             )
         }
@@ -76,13 +79,10 @@ private fun ProductsContent(
             modifier = Modifier.padding(bottom = 16.dp)
         )
         
-        OutlinedTextField(
-            value = searchQuery,
-            onValueChange = onSearchQueryChange,
-            label = { Text("Поиск продукта") },
-            modifier = Modifier.fillMaxWidth(),
-            singleLine = true,
-            placeholder = { Text("Например: яблоко, рис, курица") }
+        ProductSearchBar(
+            query = searchQuery,
+            onQueryChange = onSearchQueryChange,
+            placeholder = "Например: яблоко, рис, курица"
         )
         
         Spacer(modifier = Modifier.height(16.dp))
@@ -106,40 +106,6 @@ private fun ProductsContent(
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                 }
-            }
-        }
-    }
-}
-
-@Composable
-private fun ProductListItem(
-    product: Product,
-    onClick: () -> Unit
-) {
-    GlassCard(
-        modifier = Modifier
-            .fillMaxWidth()
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = product.name,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                Text(
-                    text = "${product.caloriesPer100g.toInt()} ккал / 100г",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                )
-                Text(
-                    text = "Б: ${product.proteinsPer100g.toInt()}г, Ж: ${product.fatsPer100g.toInt()}г, У: ${product.carbsPer100g.toInt()}г",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-                )
             }
         }
     }

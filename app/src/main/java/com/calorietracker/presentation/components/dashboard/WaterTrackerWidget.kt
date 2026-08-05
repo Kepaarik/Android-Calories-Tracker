@@ -9,10 +9,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LinearProgressIndicator
@@ -21,30 +20,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.calorietracker.R
-import com.calorietracker.domain.model.DailySummary
+import com.calorietracker.presentation.components.common.GlassCard
 
 @Composable
 fun WaterTrackerWidget(
-    currentIntake: Int,
-    dailyGoal: Int,
-    onIncrement: () -> Unit,
-    onDecrement: () -> Unit,
+    currentIntakeMl: Int,
+    targetMl: Int,
+    onAddWater: () -> Unit,
+    onRemoveWater: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val progress = (currentIntake.toFloat() / dailyGoal.toFloat()).coerceIn(0f, 1f)
+    val progress = (currentIntakeMl.toFloat() / targetMl.toFloat()).coerceIn(0f, 1f)
     
-    Card(
+    GlassCard(
         modifier = modifier
             .fillMaxWidth()
-            .padding(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        shape = RoundedCornerShape(16.dp)
+            .padding(16.dp)
     ) {
         Column(
             modifier = Modifier
@@ -64,7 +57,7 @@ fun WaterTrackerWidget(
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Text(
-                    text = "$currentIntake / $dailyGoal мл",
+                    text = "$currentIntakeMl / $targetMl мл",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.primary
                 )
@@ -88,14 +81,14 @@ fun WaterTrackerWidget(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 IconButton(
-                    onClick = onDecrement,
-                    enabled = currentIntake > 0
+                    onClick = onRemoveWater,
+                    enabled = currentIntakeMl > 0
                 ) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_minus),
-                        contentDescription = stringResource(id = R.string.decrease_water),
+                        imageVector = Icons.Default.Remove,
+                        contentDescription = "Уменьшить воду",
                         modifier = Modifier.size(24.dp),
-                        tint = if (currentIntake > 0) 
+                        tint = if (currentIntakeMl > 0) 
                             MaterialTheme.colorScheme.primary 
                         else 
                             MaterialTheme.colorScheme.onSurfaceVariant
@@ -113,10 +106,10 @@ fun WaterTrackerWidget(
                 
                 Spacer(modifier = Modifier.width(16.dp))
                 
-                IconButton(onClick = onIncrement) {
+                IconButton(onClick = onAddWater) {
                     Icon(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.ic_plus),
-                        contentDescription = stringResource(id = R.string.increase_water),
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Добавить воду",
                         modifier = Modifier.size(24.dp),
                         tint = MaterialTheme.colorScheme.primary
                     )
