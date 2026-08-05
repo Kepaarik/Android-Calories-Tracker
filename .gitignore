@@ -1,1 +1,14 @@
-Nothing should be ignored since the only modified file is a Kotlin source file (.kt) which is source code.
+```
+# Gradle
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+!gradlew
+
+# Dependencies
+build/
+
+# Environment
+.env
+.env.local
+*.env.*
+```
