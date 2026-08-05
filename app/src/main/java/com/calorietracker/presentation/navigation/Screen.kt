@@ -8,4 +8,5 @@ sealed class Screen(val route: String) {
     object Statistics : Screen("statistics")
     object Profile : Screen("profile")
     object WeightHistory : Screen("weight_history")
+    object AddWeightEntry : Screen("add_weight_entry")
 }

@@ -13,6 +13,7 @@ import com.calorietracker.presentation.screens.profile.ProfileScreen
 import com.calorietracker.presentation.screens.products.ProductsScreen
 import com.calorietracker.presentation.screens.splash.SplashScreen
 import com.calorietracker.presentation.screens.statistics.StatisticsScreen
+import com.calorietracker.presentation.screens.weighthistory.WeightHistoryScreen
 import com.calorietracker.presentation.viewmodel.AuthViewModel
 
 @Composable
@@ -65,6 +66,9 @@ fun NavGraph(
                 },
                 onNavigateToProfile = {
                     navController.navigate(Screen.Profile.route)
+                },
+                onNavigateToWeightHistory = {
+                    navController.navigate(Screen.WeightHistory.route)
                 }
             )
         }
@@ -95,6 +99,16 @@ fun NavGraph(
                     navController.navigate(Screen.Login.route) {
                         popUpTo(Screen.Dashboard.route) { inclusive = true }
                     }
+                }
+            )
+        }
+        
+        // Weight History Screen
+        composable(Screen.WeightHistory.route) {
+            WeightHistoryScreen(
+                onNavigateBack = { navController.popBackStack() },
+                onAddWeightEntry = {
+                    // TODO: Show dialog to add weight entry
                 }
             )
         }
