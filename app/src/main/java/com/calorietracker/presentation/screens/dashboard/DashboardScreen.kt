@@ -13,12 +13,18 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PullRefreshIndicator
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarResult
+import androidx.compose.material3.Text
 import androidx.compose.material3.pullrefresh.pullRefresh
 import androidx.compose.material3.pullrefresh.rememberPullRefreshState
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -32,6 +38,8 @@ import com.calorietracker.presentation.components.common.LoadingIndicator
 import com.calorietracker.presentation.components.dashboard.DailySummaryCard
 import com.calorietracker.presentation.components.dashboard.MealSection
 import com.calorietracker.presentation.components.dashboard.DiaryEntryItem
+import com.calorietracker.presentation.components.dashboard.WaterTrackerWidget
+import com.calorietracker.presentation.components.dashboard.WeightTrackerWidget
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,6 +54,7 @@ fun DashboardScreen(
         refreshing = uiState.isLoading,
         onRefresh = viewModel::loadDiaryEntries
     )
+    val snackbarHostState = remember { androidx.compose.material3.ScaffoldSnackbarState() }
     
     when {
         uiState.isLoading && uiState.dailySummary == null -> {
@@ -58,6 +67,23 @@ fun DashboardScreen(
             )
         }
         else -> {
+            // Обработка Undo через Snackbar
+            LaunchedEffect(uiState.isUndoAvailable) {
+                if (uiState.isUndoAvailable && uiState.lastDeletedEntry != null) {
+                    val result = snackbarHostState.showSnackbar(
+                        message = "Запись удалена",
+                        actionLabel = "Отменить",
+                        duration = SnackbarDuration.Long
+                    )
+                    
+                    if (result == SnackbarResult.ActionPerformed) {
+                        viewModel.undoDeleteEntry()
+                    } else {
+                        viewModel.clearUndoState()
+                    }
+                }
+            }
+            
             DashboardContent(
                 uiState = uiState,
                 isRefreshing = uiState.isLoading,
@@ -82,108 +108,132 @@ private fun DashboardContent(
     onWeightHistoryClick: () -> Unit,
     onAddWaterClick: () -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .pullRefresh(rememberPullRefreshState(isRefreshing, onRefresh))
-    ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(bottom = 80.dp) // место для BottomNavigationBar
-        ) {
-            // Заголовок с датой
-            item {
-                Text(
-                    text = "Сегодня",
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.onBackground,
-                    modifier = Modifier.padding(16.dp)
-                )
-            }
+    val snackbarHostState = remember { androidx.compose.material3.ScaffoldSnackbarState() }
+    
+    LaunchedEffect(uiState.isUndoAvailable) {
+        if (uiState.isUndoAvailable && uiState.lastDeletedEntry != null) {
+            val result = snackbarHostState.showSnackbar(
+                message = "Запись удалена",
+                actionLabel = "Отменить",
+                duration = SnackbarDuration.Long
+            )
             
-            // Карточка с итогами дня
-            uiState.dailySummary?.let { summary ->
-                item {
-                    DailySummaryCard(
-                        dailySummary = summary,
-                        calorieNorm = 2000 // TODO: получить из профиля
-                    )
-                }
-            }
-            
-            // Секции приёмов пищи
-            item {
-                MealSection(
-                    mealType = MealType.BREAKFAST,
-                    entries = uiState.breakfastEntries,
-                    onDeleteEntry = onDeleteEntry,
-                    onAddEntryClick = onAddEntryClick
-                )
-            }
-            
-            item {
-                MealSection(
-                    mealType = MealType.LUNCH,
-                    entries = uiState.lunchEntries,
-                    onDeleteEntry = onDeleteEntry,
-                    onAddEntryClick = onAddEntryClick
-                )
-            }
-            
-            item {
-                MealSection(
-                    mealType = MealType.DINNER,
-                    entries = uiState.dinnerEntries,
-                    onDeleteEntry = onDeleteEntry,
-                    onAddEntryClick = onAddEntryClick
-                )
-            }
-            
-            item {
-                MealSection(
-                    mealType = MealType.SNACK,
-                    entries = uiState.snackEntries,
-                    onDeleteEntry = onDeleteEntry,
-                    onAddEntryClick = onAddEntryClick
-                )
-            }
-            
-            // Виджет воды
-            item {
-                com.calorietracker.presentation.components.dashboard.WaterTrackerWidget(
-                    currentIntakeMl = uiState.waterIntakeMl,
-                    targetMl = uiState.targetWaterMl,
-                    onAddWater = onAddWaterClick,
-                    onRemoveWater = { /* TODO */ }
-                )
-            }
-            
-            // Виджет веса
-            uiState.latestWeight?.let { weight ->
-                item {
-                    com.calorietracker.presentation.components.dashboard.WeightTrackerWidget(
-                        currentWeight = weight.weightKg,
-                        onWeightHistoryClick = onWeightHistoryClick
-                    )
-                }
-            }
-            
-            // Пустое состояние если нет записей
-            if (uiState.diaryEntries.isEmpty()) {
-                item {
-                    EmptyState(
-                        title = "Нет записей",
-                        message = "Добавьте первый продукт в дневник"
-                    )
-                }
+            if (result == SnackbarResult.ActionPerformed) {
+                onDeleteEntry(uiState.lastDeletedEntry!!.id) // Восстановить запись
+            } else {
+                // Пользователь не нажал "Отменить", запись уже удалена в БД
             }
         }
-        
-        PullRefreshIndicator(
-            refreshing = isRefreshing,
-            state = pullRefreshState,
-            modifier = Modifier.align(Alignment.TopCenter)
-        )
+    }
+    
+    Scaffold(
+        snackbarHost = { SnackbarHost(snackbarHostState) },
+        modifier = Modifier.fillMaxSize()
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+                .pullRefresh(rememberPullRefreshState(isRefreshing, onRefresh))
+        ) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(bottom = 80.dp) // место для BottomNavigationBar
+            ) {
+                // Заголовок с датой
+                item {
+                    Text(
+                        text = "Сегодня",
+                        style = MaterialTheme.typography.headlineMedium,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
+                
+                // Карточка с итогами дня
+                uiState.dailySummary?.let { summary ->
+                    item {
+                        DailySummaryCard(
+                            dailySummary = summary,
+                            calorieNorm = 2000 // TODO: получить из профиля
+                        )
+                    }
+                }
+                
+                // Секции приёмов пищи
+                item {
+                    MealSection(
+                        mealType = MealType.BREAKFAST,
+                        entries = uiState.breakfastEntries,
+                        onDeleteEntry = onDeleteEntry,
+                        onAddEntryClick = onAddEntryClick
+                    )
+                }
+                
+                item {
+                    MealSection(
+                        mealType = MealType.LUNCH,
+                        entries = uiState.lunchEntries,
+                        onDeleteEntry = onDeleteEntry,
+                        onAddEntryClick = onAddEntryClick
+                    )
+                }
+                
+                item {
+                    MealSection(
+                        mealType = MealType.DINNER,
+                        entries = uiState.dinnerEntries,
+                        onDeleteEntry = onDeleteEntry,
+                        onAddEntryClick = onAddEntryClick
+                    )
+                }
+                
+                item {
+                    MealSection(
+                        mealType = MealType.SNACK,
+                        entries = uiState.snackEntries,
+                        onDeleteEntry = onDeleteEntry,
+                        onAddEntryClick = onAddEntryClick
+                    )
+                }
+                
+                // Виджет воды
+                item {
+                    WaterTrackerWidget(
+                        currentIntakeMl = uiState.waterIntakeMl,
+                        targetMl = uiState.targetWaterMl,
+                        onAddWater = onAddWaterClick,
+                        onRemoveWater = { /* TODO */ }
+                    )
+                }
+                
+                // Виджет веса
+                uiState.latestWeight?.let { weight ->
+                    item {
+                        WeightTrackerWidget(
+                            currentWeight = weight.weightKg,
+                            onWeightHistoryClick = onWeightHistoryClick
+                        )
+                    }
+                }
+                
+                // Пустое состояние если нет записей
+                if (uiState.diaryEntries.isEmpty()) {
+                    item {
+                        EmptyState(
+                            title = "Нет записей",
+                            message = "Добавьте первый продукт в дневник"
+                        )
+                    }
+                }
+            }
+            
+            PullRefreshIndicator(
+                refreshing = isRefreshing,
+                state = rememberPullRefreshState(isRefreshing, onRefresh),
+                modifier = Modifier.align(Alignment.TopCenter)
+            )
+        }
     }
 }
