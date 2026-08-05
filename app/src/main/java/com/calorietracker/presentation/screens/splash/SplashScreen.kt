@@ -19,7 +19,8 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
-    onTimeout: () -> Unit
+    onNavigateToLogin: () -> Unit,
+    onNavigateToDashboard: () -> Unit
 ) {
     var scale by androidx.compose.runtime.mutableFloatStateOf(0.5f)
     val animatedScale by animateFloatAsState(
@@ -30,7 +31,13 @@ fun SplashScreen(
     LaunchedEffect(true) {
         scale = 1f
         delay(2000)
-        onTimeout()
+        // TODO: Check auth status from DataStore
+        val isLoggedIn = false // Replace with actual auth check
+        if (isLoggedIn) {
+            onNavigateToDashboard()
+        } else {
+            onNavigateToLogin()
+        }
     }
     
     Column(
