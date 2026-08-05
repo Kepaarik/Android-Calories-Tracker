@@ -2,6 +2,7 @@ package com.calorietracker.presentation.screens.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.calorietracker.data.local.preferences.AuthPreferences
 import com.calorietracker.domain.usecase.auth.LoginUseCase
 import com.calorietracker.domain.usecase.auth.RegisterUseCase
 import com.calorietracker.domain.usecase.auth.TelegramAuthUseCase
@@ -16,7 +17,8 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val registerUseCase: RegisterUseCase,
-    private val telegramAuthUseCase: TelegramAuthUseCase
+    private val telegramAuthUseCase: TelegramAuthUseCase,
+    private val authPreferences: AuthPreferences
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
@@ -43,6 +45,11 @@ class LoginViewModel @Inject constructor(
             
             loginUseCase(state.email, state.password)
                 .onSuccess { authResult ->
+                    authPreferences.saveAuthData(
+                        jwtToken = authResult.accessToken,
+                        refreshToken = authResult.refreshToken,
+                        userId = authResult.userId.toString()
+                    )
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         isLoggedIn = true,
@@ -67,6 +74,11 @@ class LoginViewModel @Inject constructor(
             
             registerUseCase(state.username!!, state.email, state.password)
                 .onSuccess { authResult ->
+                    authPreferences.saveAuthData(
+                        jwtToken = authResult.accessToken,
+                        refreshToken = authResult.refreshToken,
+                        userId = authResult.userId.toString()
+                    )
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         isLoggedIn = true,
@@ -88,6 +100,11 @@ class LoginViewModel @Inject constructor(
             
             telegramAuthUseCase(initData)
                 .onSuccess { authResult ->
+                    authPreferences.saveAuthData(
+                        jwtToken = authResult.accessToken,
+                        refreshToken = authResult.refreshToken,
+                        userId = authResult.userId.toString()
+                    )
                     _uiState.value = _uiState.value.copy(
                         isLoading = false,
                         isLoggedIn = true,

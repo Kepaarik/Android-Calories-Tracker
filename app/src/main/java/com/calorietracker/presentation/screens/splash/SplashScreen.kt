@@ -5,7 +5,6 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,12 +14,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
     onNavigateToLogin: () -> Unit,
-    onNavigateToDashboard: () -> Unit
+    onNavigateToDashboard: () -> Unit,
+    viewModel: SplashViewModel = hiltViewModel()
 ) {
     var scale by androidx.compose.runtime.mutableFloatStateOf(0.5f)
     val animatedScale by animateFloatAsState(
@@ -31,8 +32,8 @@ fun SplashScreen(
     LaunchedEffect(true) {
         scale = 1f
         delay(2000)
-        // TODO: Check auth status from DataStore
-        val isLoggedIn = false // Replace with actual auth check
+        
+        val isLoggedIn = viewModel.checkAuthStatus()
         if (isLoggedIn) {
             onNavigateToDashboard()
         } else {
