@@ -13,7 +13,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PullRefreshIndicator
-import androidx.compose.material3.pullrefresh.PullRefreshIndicatorPadding
 import androidx.compose.material3.pullrefresh.pullRefresh
 import androidx.compose.material3.pullrefresh.rememberPullRefreshState
 import androidx.compose.material3.Text
@@ -31,36 +30,42 @@ import com.calorietracker.presentation.components.common.ErrorScreen
 import com.calorietracker.presentation.components.common.GlassCard
 import com.calorietracker.presentation.components.common.LoadingIndicator
 import com.calorietracker.presentation.components.dashboard.DailySummaryCard
+import com.calorietracker.presentation.components.dashboard.MealSection
+import com.calorietracker.presentation.components.dashboard.DiaryEntryItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreen(
-    viewModel: DashboardViewModel = hiltViewModel()
+    viewModel: DashboardViewModel = hiltViewModel(),
+    onAddEntryClick: () -> Unit = {},
+    onWeightHistoryClick: () -> Unit = {},
+    onAddWaterClick: () -> Unit = {}
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val pullRefreshState = rememberPullRefreshState(
-        refreshing = uiState.isRefreshing,
-        onRefresh = viewModel::onRefresh
+        refreshing = uiState.isLoading,
+        onRefresh = viewModel::loadDiaryEntries
     )
     
     when {
         uiState.isLoading && uiState.dailySummary == null -> {
             LoadingIndicator(message = "Загрузка...")
         }
-        uiState.errorMessage != null -> {
+        uiState.error != null -> {
             ErrorScreen(
-                message = uiState.errorMessage!!,
-                onRetry = viewModel::onRefresh
+                message = uiState.error!!,
+                onRetry = viewModel::loadDiaryEntries
             )
         }
         else -> {
             DashboardContent(
-                dailySummary = uiState.dailySummary,
-                calorieNorm = uiState.calorieNorm,
-                entriesByMealType = uiState.entriesByMealType,
-                isRefreshing = uiState.isRefreshing,
-                onRefresh = viewModel::onRefresh,
-                onDeleteEntry = viewModel::onDeleteEntry
+                uiState = uiState,
+                isRefreshing = uiState.isLoading,
+                onRefresh = viewModel::loadDiaryEntries,
+                onDeleteEntry = viewModel::deleteDiaryEntry,
+                onAddEntryClick = onAddEntryClick,
+                onWeightHistoryClick = onWeightHistoryClick,
+                onAddWaterClick = onAddWaterClick
             )
         }
     }
@@ -69,12 +74,13 @@ fun DashboardScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun DashboardContent(
-    dailySummary: DailySummary?,
-    calorieNorm: Int,
-    entriesByMealType: Map<MealType, List<DiaryEntry>>,
+    uiState: DashboardUiState,
     isRefreshing: Boolean,
     onRefresh: () -> Unit,
-    onDeleteEntry: (DiaryEntry) -> Unit
+    onDeleteEntry: (Int) -> Unit,
+    onAddEntryClick: () -> Unit,
+    onWeightHistoryClick: () -> Unit,
+    onAddWaterClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -97,30 +103,74 @@ private fun DashboardContent(
             }
             
             // Карточка с итогами дня
-            if (dailySummary != null) {
+            uiState.dailySummary?.let { summary ->
                 item {
                     DailySummaryCard(
-                        dailySummary = dailySummary,
-                        calorieNorm = calorieNorm
+                        dailySummary = summary,
+                        calorieNorm = 2000 // TODO: получить из профиля
                     )
                 }
             }
             
             // Секции приёмов пищи
-            MealType.values().forEach { mealType ->
-                val entries = entriesByMealType[mealType] ?: emptyList()
-                
+            item {
+                MealSection(
+                    mealType = MealType.BREAKFAST,
+                    entries = uiState.breakfastEntries,
+                    onDeleteEntry = onDeleteEntry,
+                    onAddEntryClick = onAddEntryClick
+                )
+            }
+            
+            item {
+                MealSection(
+                    mealType = MealType.LUNCH,
+                    entries = uiState.lunchEntries,
+                    onDeleteEntry = onDeleteEntry,
+                    onAddEntryClick = onAddEntryClick
+                )
+            }
+            
+            item {
+                MealSection(
+                    mealType = MealType.DINNER,
+                    entries = uiState.dinnerEntries,
+                    onDeleteEntry = onDeleteEntry,
+                    onAddEntryClick = onAddEntryClick
+                )
+            }
+            
+            item {
+                MealSection(
+                    mealType = MealType.SNACK,
+                    entries = uiState.snackEntries,
+                    onDeleteEntry = onDeleteEntry,
+                    onAddEntryClick = onAddEntryClick
+                )
+            }
+            
+            // Виджет воды
+            item {
+                com.calorietracker.presentation.components.dashboard.WaterTrackerWidget(
+                    currentIntakeMl = uiState.waterIntakeMl,
+                    targetMl = uiState.targetWaterMl,
+                    onAddWater = onAddWaterClick,
+                    onRemoveWater = { /* TODO */ }
+                )
+            }
+            
+            // Виджет веса
+            uiState.latestWeight?.let { weight ->
                 item {
-                    MealSection(
-                        mealType = mealType,
-                        entries = entries,
-                        onDeleteEntry = onDeleteEntry
+                    com.calorietracker.presentation.components.dashboard.WeightTrackerWidget(
+                        currentWeight = weight.weightKg,
+                        onWeightHistoryClick = onWeightHistoryClick
                     )
                 }
             }
             
             // Пустое состояние если нет записей
-            if (entriesByMealType.isEmpty()) {
+            if (uiState.diaryEntries.isEmpty()) {
                 item {
                     EmptyState(
                         title = "Нет записей",
@@ -135,86 +185,5 @@ private fun DashboardContent(
             state = pullRefreshState,
             modifier = Modifier.align(Alignment.TopCenter)
         )
-    }
-}
-
-@Composable
-private fun MealSection(
-    mealType: MealType,
-    entries: List<DiaryEntry>,
-    onDeleteEntry: (DiaryEntry) -> Unit
-) {
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        Text(
-            text = getMealTypeName(mealType),
-            style = MaterialTheme.typography.titleLarge,
-            color = MaterialTheme.colorScheme.onSurface,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        
-        if (entries.isEmpty()) {
-            Text(
-                text = "Нет продуктов",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-            )
-        } else {
-            entries.forEach { entry ->
-                DiaryEntryItem(
-                    entry = entry,
-                    onDelete = { onDeleteEntry(entry) }
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-            }
-        }
-    }
-}
-
-@Composable
-private fun DiaryEntryItem(
-    entry: DiaryEntry,
-    onDelete: () -> Unit
-) {
-    GlassCard(
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = entry.product.name,
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                Text(
-                    text = "${entry.weightGrams}г • ${entry.nutritionalInfo.calories.toInt()} ккал",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                )
-            }
-            
-            Text(
-                text = "Удалить",
-                style = MaterialTheme.typography.labelMedium,
-                color = MaterialTheme.colorScheme.error,
-                modifier = Modifier.padding(start = 8.dp)
-            )
-        }
-    }
-}
-
-private fun getMealTypeName(mealType: MealType): String {
-    return when (mealType) {
-        MealType.BREAKFAST -> "Завтрак"
-        MealType.LUNCH -> "Обед"
-        MealType.DINNER -> "Ужин"
-        MealType.SNACK -> "Перекус"
     }
 }
