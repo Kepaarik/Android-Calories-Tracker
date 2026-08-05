@@ -1,52 +1,75 @@
 ```
-# Android/Gradle build artifacts
-*.apk
-*.aar
-*.jar
+# Kotlin/Android build artifacts
 *.class
+*.jar
+*.war
+*.aar
+*.apk
 *.dex
-*.so
 
-# Gradle
+# Android specific
+/build/
+/app/build/
 .gradle/
-build/
-app/build/
-
-# Local configuration file (sdk path, etc)
 local.properties
+.pro
+cxx/
 
-# Log Files
-*.log
+# Dependencies
+.libs/
+lib/
 
-# Android Studio Navigation editor temp files
-.navigation/
-
-# To be safe, ignore the entire gradle folder
-.gradle/
-
-# IDE
+# IDE files
 .idea/
 *.iml
 *.iws
-*.ipr
+.vscode/
 
-# System
-.DS_Store
-Thumbs.db
+# Compiled files
+*.so
+*.dylib
+*.dll
+
+# Logs
+*.log
 
 # Environment
 .env
 .env.local
 *.env.*
 
-# Coverage
+# Coverage reports
 coverage/
 *.gcov
-*.lcov
 *.profdata
+
+# Distribution / packaging
+/dist/
+/target/
+/out/
+
+# Python (if any mixed projects)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# Node.js (if any mixed projects)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # Temporary files
 *.tmp
 *.temp
 *~
+.swp
+.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
 ```
