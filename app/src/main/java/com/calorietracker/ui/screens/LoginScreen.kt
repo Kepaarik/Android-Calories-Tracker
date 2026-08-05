@@ -1,116 +1,120 @@
 package com.calorietracker.ui.screens
 
-import android.content.Intent
-import android.net.Uri
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import com.calorietracker.data.repository.TelegramAuthRepository
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.ui.geometry.Offset
+import com.calorietracker.ui.components.GlassCard
+import com.calorietracker.ui.components.GlassButton
+import com.calorietracker.ui.components.GlassTextField
+import com.calorietracker.ui.components.ButtonVariant
+import com.calorietracker.ui.theme.*
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(
-    onLoginSuccess: () -> Unit,
-    viewModel: LoginViewModel = hiltViewModel()
+    onLoginSuccess: () -> Unit
 ) {
-    val context = LocalContext.current
-    val isLoggedIn by viewModel.isLoggedIn.collectAsState()
-    
-    // Telegram Web View launcher
-    val telegramLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        // Handle Telegram auth result
-        if (result.resultCode == androidx.activity.ComponentActivity.RESULT_OK) {
-            // Process auth data
-            viewModel.processTelegramAuth()
-        }
-    }
-    
-    LaunchedEffect(isLoggedIn) {
-        if (isLoggedIn) {
-            onLoginSuccess()
-        }
-    }
+    val isDarkTheme = isSystemInDarkTheme()
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var isLogin by remember { mutableStateOf(true) }
     
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(24.dp),
-        contentAlignment = Alignment.Center
+            .background(
+                Brush.radialGradient(
+                    colors = listOf(
+                        Color(0xFF0088CC).copy(alpha = 0.15f),
+                        Color.Transparent
+                    ),
+                    center = Offset(0f, 0f),
+                    radius = 400f
+                )
+            )
     ) {
         Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState())
+                .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(24.dp)
+            verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = "Calorie Tracker",
-                style = MaterialTheme.typography.headlineLarge,
-                fontWeight = FontWeight.Bold
-            )
-            
-            Text(
-                text = "Отслеживайте калории, активность и достигайте целей",
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            
-            Spacer(modifier = Modifier.height(32.dp))
-            
-            Button(
-                onClick = {
-                    // Launch Telegram authentication
-                    val telegramUrl = "https://t.me/your_bot_name?start=auth"
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(telegramUrl))
-                    telegramLauncher.launch(intent)
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
+            GlassCard(
+                modifier = Modifier.fillMaxWidth(),
+                darkTheme = isDarkTheme,
+                padding = "32dp"
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    Icon(
-                        imageVector = androidx.compose.material.icons.Icons.Default.Person,
-                        contentDescription = null
-                    )
                     Text(
-                        text = "Войти через Telegram",
-                        style = MaterialTheme.typography.titleMedium
+                        text = if (isLogin) "Вход" else "Регистрация",
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = if (isDarkTheme) DarkTextPrimary else LightTextPrimary
+                    )
+                    
+                    Text(
+                        text = if (isLogin) "Войдите в свой аккаунт" else "Создайте новый аккаунт",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = if (isDarkTheme) DarkTextSecondary else LightTextSecondary
+                    )
+                    
+                    Spacer(modifier = Modifier.height(8.dp))
+                    
+                    GlassTextField(
+                        value = email,
+                        onValueChange = { email = it },
+                        placeholder = "Email",
+                        darkTheme = isDarkTheme,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    
+                    GlassTextField(
+                        value = password,
+                        onValueChange = { password = it },
+                        placeholder = "Пароль",
+                        darkTheme = isDarkTheme,
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    
+                    Spacer(modifier = Modifier.height(16.dp))
+                    
+                    GlassButton(
+                        onClick = onLoginSuccess,
+                        text = if (isLogin) "Войти" else "Зарегистрироваться",
+                        darkTheme = isDarkTheme,
+                        variant = ButtonVariant.Success,
+                        fullWidth = true
+                    )
+                    
+                    GlassButton(
+                        onClick = { isLogin = !isLogin },
+                        text = if (isLogin) "Нет аккаунта? Зарегистрироваться" else "Уже есть аккаунт? Войти",
+                        darkTheme = isDarkTheme,
+                        variant = ButtonVariant.Default,
+                        fullWidth = true
                     )
                 }
             }
-            
-            Text(
-                text = "Для входа используется ваш аккаунт Telegram",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
         }
-    }
-}
-
-@HiltViewModel
-class LoginViewModel @Inject constructor(
-    private val authRepository: TelegramAuthRepository
-) : androidx.lifecycle.ViewModel() {
-    
-    val isLoggedIn = authRepository.isLoggedIn
-    
-    fun processTelegramAuth() {
-        // Process Telegram auth data from init data
-        // In real implementation, parse initData from Telegram Web App
-        authRepository.login()
     }
 }

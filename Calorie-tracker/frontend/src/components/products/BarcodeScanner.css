@@ -1,0 +1,20 @@
+/* frontend/src/components/products/BarcodeScanner.css */
+
+.barcode-scanner-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.barcode-scanner-input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.barcode-scanner-button {
+  padding: 10px 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}

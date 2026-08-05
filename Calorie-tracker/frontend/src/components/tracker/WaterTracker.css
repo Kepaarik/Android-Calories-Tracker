@@ -1,0 +1,54 @@
+.water-tracker-card {
+  padding: 16px;
+}
+
+.water-tracker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.water-tracker-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.water-tracker-title {
+  font-size: 16px;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.water-tracker-reset-btn {
+  font-size: 11px;
+  padding: 4px 8px;
+}
+
+.water-tracker-count {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.water-tracker-glasses {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.water-tracker-glass-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  transition: all 0.2s ease;
+  opacity: 0.3;
+  transform: scale(0.9);
+}
+
+.water-tracker-glass-btn[data-filled="true"] {
+  opacity: 1;
+  transform: scale(1);
+}

@@ -1,0 +1,67 @@
+name: calorie-tracker
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER:-calorie_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-calorie_pass}
+      POSTGRES_DB: ${DB_NAME:-calorie_tracker}
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-calorie_user} -d ${DB_NAME:-calorie_tracker}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+asyncpg://${DB_USER:-calorie_user}:${DB_PASSWORD:-calorie_pass}@postgres:5432/${DB_NAME:-calorie_tracker}
+      SECRET_KEY: ${SECRET_KEY:-change-me-in-production}
+      BOT_TOKEN: ${BOT_TOKEN}
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://calorie.danon4ik.cc,http://localhost:3000}
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./backend/migrations/versions:/app/migrations/versions
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: >
+      sh -c "
+        alembic upgrade head &&
+        python seed_products.py &&
+        uvicorn app.main:app --host 0.0.0.0 --port 8000
+      "
+
+  bot:
+    build: ./bot
+    restart: unless-stopped
+    environment:
+      BOT_TOKEN: ${BOT_TOKEN}
+      WEBAPP_URL: ${WEBAPP_URL:-https://calorie.danon4ik.cc}
+      API_BASE_URL: http://backend:8000
+    depends_on:
+      backend:
+        condition: service_started
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: ${VITE_API_URL:-}
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_started
+
+volumes:
+  pg_data: 

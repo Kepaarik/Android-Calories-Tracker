@@ -24,6 +24,14 @@ dist/
 *.log
 *.tmp
 *.swp
+```
+# Gradle
+.gradle/
+!gradle/wrapper/gradle-wrapper.jar
+!gradlew
+
+# Dependencies
+build/
 
 # Environment
 .env
@@ -68,3 +76,4 @@ htmlcov/
 *.tar.bz2
 *.tar.xz
 *.tar.zst
+```

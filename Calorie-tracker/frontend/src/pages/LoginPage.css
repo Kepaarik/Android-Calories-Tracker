@@ -1,0 +1,94 @@
+.login-page-telegram-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  padding: 24px;
+}
+
+.login-page-telegram-message {
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.login-page-telegram-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 136, 204, 0.2);
+  border-top: 3px solid #0088cc;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+
+.login-page-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.login-page-card {
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-page-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.login-page-subtitle {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.login-page-field {
+  margin-bottom: 16px;
+}
+
+.login-page-field-password {
+  margin-bottom: 24px;
+}
+
+.login-page-input {
+  margin-bottom: 0;
+}
+
+.login-page-error {
+  padding: 12px;
+  margin-bottom: 16px;
+  background: rgba(239, 83, 80, 0.1);
+  border: 1px solid var(--danger-color);
+  border-radius: 8px;
+  color: var(--danger-color);
+  font-size: 13px;
+}
+
+.login-page-submit-btn {
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.login-page-toggle-btn {
+  width: 100%;
+  padding: 12px;
+  background: transparent;
+  border: none;
+  color: var(--primary-color);
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

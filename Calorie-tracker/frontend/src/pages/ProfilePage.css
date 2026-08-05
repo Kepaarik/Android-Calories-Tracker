@@ -1,0 +1,168 @@
+.profile-page-container {
+  padding: 16px;
+}
+
+.profile-page-skeleton-header {
+  margin-bottom: 16px;
+  padding: 12px 16px;
+}
+
+.profile-page-skeleton-header-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-page-skeleton-name-block {
+  flex: 1;
+}
+
+.profile-page-skeleton-form {
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.profile-page-skeleton-field {
+  margin-bottom: 16px;
+}
+
+.profile-page-skeleton-field-row {
+  display: flex;
+  gap: 8px;
+}
+
+.profile-page-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.profile-page-theme-card {
+  margin-bottom: 16px;
+}
+
+.profile-page-theme-title {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.profile-page-accent-title {
+  margin-top: 20px;
+}
+
+.profile-page-telegram-card {
+  margin-bottom: 16px;
+}
+
+.profile-page-telegram-title {
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.profile-page-telegram-bound-banner {
+  padding: 12px 16px;
+  background: rgba(76, 175, 80, 0.1);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.profile-page-telegram-bound-text {
+  flex: 1;
+}
+
+.profile-page-telegram-bound-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #4caf50;
+}
+
+.profile-page-telegram-bound-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.profile-page-telegram-action-btn {
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.profile-page-telegram-bind-btn {
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.profile-page-telegram-hint {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.profile-page-telegram-not-in-app {
+  padding: 12px 16px;
+  background: rgba(255, 167, 38, 0.1);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--warning-color);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-page-form-card {
+  margin-bottom: 16px;
+}
+
+.profile-page-form-section-title {
+  margin-bottom: 16px;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.profile-page-numeric-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.profile-page-numeric-input {
+  margin-bottom: 0;
+}
+
+.profile-page-formula-description {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: -8px;
+  margin-bottom: 16px;
+}
+
+.profile-page-section-label {
+  margin: 16px 0 8px;
+}
+
+.profile-page-submit-btn {
+  padding: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}

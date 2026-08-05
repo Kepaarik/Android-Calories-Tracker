@@ -2,12 +2,19 @@ package com.calorietracker.ui.screens
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.view.ViewGroup
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -21,13 +28,13 @@ import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 import java.util.concurrent.Executors
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScanBarcodeScreen(
     onNavigateBack: () -> Unit,
     onBarcodeScanned: (String) -> Unit
 ) {
     val context = LocalContext.current
-    val lifecycleOwner = LocalLifecycleOwner.current
     var hasCameraPermission by remember {
         mutableStateOf(
             ContextCompat.checkSelfPermission(
@@ -90,7 +97,7 @@ fun ScanBarcodeScreen(
             navigationIcon = {
                 IconButton(onClick = onNavigateBack) {
                     Icon(
-                        androidx.compose.material.icons.Icons.Default.Close,
+                        Icons.Default.Close,
                         contentDescription = "Закрыть"
                     )
                 }
@@ -108,11 +115,14 @@ fun ScanBarcodeScreen(
                 .align(Alignment.Center),
             contentAlignment = Alignment.Center
         ) {
-            androidx.compose.foundation.BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
-            androidx.compose.foundation.border(
-                width = 2.dp,
-                color = MaterialTheme.colorScheme.primary,
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp)
+            Box(
+                modifier = Modifier
+                    .size(250.dp)
+                    .border(
+                        width = 2.dp,
+                        color = MaterialTheme.colorScheme.primary,
+                        shape = RoundedCornerShape(16.dp)
+                    )
             )
             Text(
                 text = "Наведите на штрих-код",
@@ -121,7 +131,7 @@ fun ScanBarcodeScreen(
                 modifier = Modifier
                     .background(
                         MaterialTheme.colorScheme.primary.copy(alpha = 0.8f),
-                        shape = androidx.compose.foundation.shape.RoundedCornerShape(8.dp)
+                        shape = RoundedCornerShape(8.dp)
                     )
                     .padding(horizontal = 12.dp, vertical = 6.dp)
             )
@@ -141,9 +151,9 @@ private fun CameraPreview(
     AndroidView(
         factory = { ctx ->
             val previewView = PreviewView(ctx).apply {
-                layoutParams = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams(
-                    androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_PARENT,
-                    androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_PARENT
+                layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT
                 )
                 implementationMode = PreviewView.ImplementationMode.COMPATIBLE
             }

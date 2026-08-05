@@ -1,0 +1,194 @@
+.weight-tracker-widget-card {
+  padding: 20px;
+}
+
+.weight-tracker-widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.weight-tracker-widget-skeleton-avatar {
+  border-radius: 50%;
+}
+
+.weight-tracker-widget-skeleton-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.weight-tracker-widget-skeleton-chart {
+  margin-bottom: 20px;
+  border-radius: 12px;
+}
+
+.weight-tracker-widget-skeleton-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.weight-tracker-widget-title {
+  font-size: 18px;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.weight-tracker-widget-add-button {
+  width: 36px;
+  height: 36px;
+  transition: transform 0.3s ease;
+}
+
+.weight-tracker-widget-form-wrapper {
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+}
+
+.weight-tracker-widget-form-inner {
+  padding: 16px;
+  background: var(--glass-bg);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.3s ease;
+}
+
+.weight-tracker-widget-form-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.weight-tracker-widget-form-field-weight {
+  transition: all 0.3s ease 0.1s;
+}
+
+.weight-tracker-widget-form-field-date {
+  transition: all 0.3s ease 0.2s;
+}
+
+.weight-tracker-widget-form-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.weight-tracker-widget-weight-input {
+  margin-bottom: 0;
+}
+
+.weight-tracker-widget-date-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.weight-tracker-widget-date-button {
+  flex: 1;
+  padding: 12px 16px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.weight-tracker-widget-date-icon-button {
+  width: 40px;
+  height: 40px;
+}
+
+.weight-tracker-widget-form-actions {
+  display: flex;
+  gap: 8px;
+  transition: all 0.3s ease 0.3s;
+}
+
+.weight-tracker-widget-add-submit {
+  flex: 1;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.weight-tracker-widget-cancel-button {
+  flex: 1;
+  padding: 14px;
+  font-size: 15px;
+}
+
+.weight-tracker-widget-stats-section {
+  margin-bottom: 16px;
+}
+
+.weight-tracker-widget-stat-current {
+  color: var(--primary-color);
+}
+
+.weight-tracker-widget-stat-min {
+  color: var(--success-color);
+}
+
+.weight-tracker-widget-stat-max {
+  color: var(--danger-color);
+}
+
+.weight-tracker-widget-chart-section {
+  margin-bottom: 20px;
+}
+
+.weight-tracker-widget-chart-title {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.weight-tracker-widget-chart-container {
+  height: 250px;
+}
+
+.weight-tracker-widget-empty-entries {
+  text-align: center;
+  padding: 20px;
+  color: var(--text-secondary);
+}
+
+.weight-tracker-widget-entries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.weight-tracker-widget-entries-title {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.weight-tracker-widget-entry-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: var(--glass-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.weight-tracker-widget-entry-weight {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.weight-tracker-widget-entry-date {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.weight-tracker-widget-delete-button {
+  color: var(--danger-color);
+}
