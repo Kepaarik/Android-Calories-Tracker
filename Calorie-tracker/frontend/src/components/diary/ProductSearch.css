@@ -1,0 +1,56 @@
+.product-search-wrapper {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.product-search-input {
+  margin-bottom: 0;
+}
+
+.product-search-loading {
+  margin-top: 4px;
+}
+
+.product-search-error {
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+.product-search-error-not-found {
+  color: var(--text-secondary);
+}
+
+.product-search-error-message {
+  color: var(--danger-color);
+}
+
+.product-search-result-item {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  transition: background 0.2s;
+  background: transparent;
+}
+
+.product-search-result-item:hover {
+  background: var(--glass-focus);
+}
+
+.product-search-result-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.product-search-composite-badge {
+  font-size: 10px;
+  margin-left: 6px;
+  color: var(--primary-color);
+}
+
+.product-search-result-macros {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}

@@ -1,0 +1,43 @@
+/* frontend/src/components/products/AddProductModal.css */
+
+.add-product-field-group {
+  margin-bottom: 16px;
+}
+
+.add-product-search-indicator {
+  text-align: center;
+  padding: 12px;
+  margin-bottom: 16px;
+  color: var(--text-secondary);
+  font-size: 13px;
+}
+
+.add-product-input {
+  margin-bottom: 0;
+}
+
+.add-product-macros-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.add-product-error-banner {
+  padding: 12px;
+  margin-bottom: 16px;
+  background: rgba(239, 83, 80, 0.1);
+  border: 1px solid var(--danger-color);
+  border-radius: 8px;
+  color: var(--danger-color);
+  font-size: 13px;
+}
+
+.add-product-buttons-row {
+  display: flex;
+  gap: 12px;
+}
+
+.add-product-button {
+  padding: 14px;
+}

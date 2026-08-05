@@ -1,0 +1,359 @@
+.products-page-container {
+  padding: 16px;
+}
+
+.products-page-search-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.products-page-search-input {
+  margin-bottom: 0;
+  flex: 1;
+}
+
+.products-page-build-dish-btn {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.products-page-state-card {
+  text-align: center;
+}
+
+.products-page-empty-message {
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.products-page-delete-modal-body {
+  padding: 8px 0;
+}
+
+.products-page-delete-modal-text {
+  font-size: 15px;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+}
+
+.products-page-delete-modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.products-page-delete-modal-btn {
+  padding: 14px;
+}
+
+/* Сетка продуктов */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+/* Контейнер сортировки */
+.sort-container {
+  display: flex;
+  gap: 6px;
+  margin-bottom: "16px";
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) transparent;
+}
+
+.sort-container::-webkit-scrollbar {
+  height: 4px;
+}
+
+.sort-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sort-container::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 2px;
+}
+
+/* Кнопки сортировки */
+.sort-btn {
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.sort-btn:hover {
+  border-color: var(--glass-border);
+  background: var(--glass-highlight);
+}
+
+.sort-btn.active {
+  background: var(--primary-light);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Карточка продукта */
+.product-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  backdrop-filter: blur(10px) saturate(150%);
+  transition: all 0.2s ease;
+}
+
+.product-card:hover {
+  border-color: var(--glass-border);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+/* Контент карточки */
+.product-content {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.product-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.product-nutrients {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.nutrient {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  min-width: 45px;
+}
+
+.nutrient-value {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.nutrient-label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  text-transform: uppercase;
+}
+
+.nutrient.calories .nutrient-value {
+  color: var(--danger-color);
+}
+
+.nutrient:nth-child(2) .nutrient-value {
+  color: var(--macro-protein-color);
+}
+
+.nutrient:nth-child(3) .nutrient-value {
+  color: var(--warning-color);
+}
+
+.nutrient:nth-child(4) .nutrient-value {
+  color: var(--success-color);
+}
+
+/* Кнопки действий */
+.product-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.action-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  background: var(--glass-bg);
+  border: 1px solid var(--border-color);
+}
+
+.action-btn.edit {
+  color: var(--primary-color);
+}
+
+.action-btn.edit:hover {
+  background: var(--primary-light);
+  border-color: var(--primary-color);
+}
+
+.action-btn.delete {
+  color: var(--danger-color);
+}
+
+.action-btn.delete:hover {
+  background: rgba(239, 83, 80, 0.1);
+  border-color: var(--danger-color);
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 640px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .product-card {
+    padding: 12px 14px;
+  }
+
+  .product-name {
+    font-size: 13px;
+  }
+
+  .nutrient {
+    min-width: 40px;
+    padding: 3px 6px;
+  }
+
+  .nutrient-value {
+    font-size: 12px !important;
+  }
+
+  .nutrient-label {
+    font-size: 9px;
+  }
+
+  .sort-btn {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+}
+
+/* Toast стили */
+.undo-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  min-width: 300px;
+  max-width: 500px;
+  width: calc(100% - 40px);
+  animation: slideDown 0.3s ease;
+}
+
+.undo-toast-content {
+  padding: 16px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.undo-toast-btn {
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--glass-highlight);
+  color: var(--text-primary);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.undo-toast-btn:hover {
+  background: var(--primary-light);
+  border-color: var(--primary-color);
+}
+
+.undo-toast-close {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.undo-toast-close:hover {
+  background: var(--glass-highlight);
+  border-color: var(--glass-border);
+  color: var(--text-primary);
+}
+
+.undo-toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--primary-color);
+  animation: shrink 5s linear forwards;
+  border-radius: 0 0 0 12px;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+@keyframes shrink {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}

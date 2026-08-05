@@ -87,8 +87,8 @@ class TelegramAuthRepository @Inject constructor(
             TelegramUser(
                 id = userObj.getLong("id"),
                 firstName = userObj.getString("first_name"),
-                lastName = userObj.optString("last_name", null),
-                username = userObj.optString("username", null),
+                lastName = userObj.optString("last_name").takeIf { it.isNotEmpty() },
+                username = userObj.optString("username").takeIf { it.isNotEmpty() },
                 photoUrl = userObj.optJSONObject("photo_url")?.optString("small") 
                     ?: userObj.optJSONObject("photo_url")?.optString("large"),
                 authDate = userObj.getLong("auth_date"),

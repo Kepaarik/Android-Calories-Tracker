@@ -1,0 +1,27 @@
+.goal-selector-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.goal-selector-option {
+  padding: 12px;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.goal-selector-option-body {
+  flex: 1;
+}
+
+.goal-selector-option-label {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.goal-selector-option-description {
+  font-size: 12px;
+  opacity: 0.8;
+}

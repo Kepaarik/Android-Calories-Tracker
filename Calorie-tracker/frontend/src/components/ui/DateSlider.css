@@ -1,0 +1,36 @@
+.date-slider-card {
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.date-slider-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.date-slider-day {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.date-slider-weekday {
+  text-transform: uppercase;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.date-slider-daynum {
+  line-height: 1;
+}
+
+.date-slider-today-label {
+  font-weight: 600;
+  line-height: 1;
+}

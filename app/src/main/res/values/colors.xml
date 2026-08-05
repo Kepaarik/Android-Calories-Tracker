@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Base colors -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,30 +8,57 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    
-    <!-- App Theme Colors -->
-    <color name="primary">#FF4CAF50</color>
-    <color name="primary_dark">#FF388E3C</color>
-    <color name="primary_light">#FF81C784</color>
+
+    <!-- App Theme Colors - Exact match with web app -->
+    <color name="primary">#FF0077B3</color>
+    <color name="primary_dark">#FF005A8A</color>
+    <color name="primary_light">#330077B3</color>
+    <color name="secondary">#FF1976D2</color>
     <color name="accent">#FFFF9800</color>
-    <color name="error">#FFF44336</color>
-    
-    <!-- Background Colors -->
-    <color name="background">#FFFAFAFA</color>
-    <color name="surface">#FFFFFFFF</color>
-    <color name="card_background">#FFFFFFFF</color>
-    
+    <color name="error">#FFE53935</color>
+
+    <!-- Background Colors - Glass theme -->
+    <color name="background">#FFE8F4F8</color>
+    <color name="surface">#B3FFFFFF</color>
+    <color name="surface_hover">#E6FFFFFF</color>
+    <color name="card_background">#B3FFFFFF</color>
+
     <!-- Text Colors -->
-    <color name="text_primary">#FF212121</color>
-    <color name="text_secondary">#FF757575</color>
-    <color name="text_hint">#FFBDBDBD</color>
-    
-    <!-- Macro Colors -->
-    <color name="protein_color">#FF4CAF50</color>
+    <color name="text_primary">#FF1A1A2E</color>
+    <color name="text_secondary">#FF6B7280</color>
+    <color name="text_hint">#FFA0A0B0</color>
+
+    <!-- Macro Colors - Exact match with web app -->
+    <color name="protein_color">#FF1976D2</color>
     <color name="carbs_color">#FFFF9800</color>
-    <color name="fats_color">#FFF44336</color>
-    
+    <color name="fats_color">#FFE53935</color>
+
+    <!-- Accent Colors -->
+    <color name="success">#FF2E7D32</color>
+    <color name="success_light">#FF66BB6A</color>
+    <color name="danger">#FFE53935</color>
+    <color name="danger_light">#FFEF5350</color>
+    <color name="warning">#FFE65100</color>
+    <color name="warning_light">#FFFFA726</color>
+    <color name="info">#FF1976D2</color>
+    <color name="info_light">#FF42A5F5</color>
+
+    <!-- Glass Effect Colors -->
+    <color name="glass_bg">#99FFFFFF</color>
+    <color name="glass_border">#1A000000</color>
+    <color name="glass_focus">#400077B3</color>
+    <color name="glass_highlight">#D9FFFFFF</color>
+
+    <!-- Shadow Colors -->
+    <color name="shadow">#1F000000</color>
+    <color name="shadow_strong">#38000000</color>
+
     <!-- Progress Colors -->
-    <color name="progress_complete">#FF4CAF50</color>
-    <color name="progress_remaining">#FFE0E0E0</color>
+    <color name="progress_complete">#FF0077B3</color>
+    <color name="progress_remaining">#1A000000</color>
+    
+    <!-- Active/Selected state colors -->
+    <color name="active_bg">#2E0077B3</color>
+    <color name="active_border">#990077B3</color>
+    <color name="active_text">#FF0066A8</color>
 </resources>
