@@ -66,7 +66,7 @@ fun AppNavGraph(
         composable(Screen.ScanBarcode.route) {
             ScanBarcodeScreen(
                 onNavigateBack = { navController.popBackStack() },
-                onBarcodeScanned = { barcode ->
+                onBarcodeScanned = { _ ->
                     // Handle scanned barcode
                     navController.popBackStack()
                 }

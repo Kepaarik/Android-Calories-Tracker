@@ -39,7 +39,7 @@ fun HomeScreen(
     onNavigateToScanBarcode: () -> Unit,
     onNavigateToActivity: () -> Unit,
     onNavigateToSettings: () -> Unit,
-    onNavigateToHistory: (String) -> Unit,
+    @Suppress("UNUSED_PARAMETER") onNavigateToHistory: (String) -> Unit,
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
