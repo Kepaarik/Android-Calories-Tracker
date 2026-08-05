@@ -1,6 +1,9 @@
 package com.calorietracker.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ChevronRight
@@ -9,38 +12,75 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.calorietracker.ui.components.*
+import com.calorietracker.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
     onNavigateBack: () -> Unit
 ) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Профиль") },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Назад")
+    val isDarkTheme = androidx.compose.foundation.isSystemInDarkTheme()
+    
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                Brush.verticalGradient(
+                    colors = if (isDarkTheme) {
+                        listOf(DarkBackground, DarkSurface)
+                    } else {
+                        listOf(LightBackground, LightSurface)
                     }
-                }
+                )
             )
-        }
-    ) { paddingValues ->
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
-                .padding(16.dp),
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 20.dp, vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // Header with back button
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(
+                    onClick = onNavigateBack,
+                    modifier = Modifier
+                        .background(
+                            color = if (isDarkTheme) DarkGlassBg else LightGlassBg,
+                            shape = MaterialTheme.shapes.medium
+                        )
+                ) {
+                    Icon(
+                        Icons.Default.ArrowBack,
+                        contentDescription = "Назад",
+                        tint = if (isDarkTheme) DarkTextPrimary else LightTextPrimary
+                    )
+                }
+                Text(
+                    text = "Профиль",
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = if (isDarkTheme) DarkTextPrimary else LightTextPrimary
+                )
+                Spacer(modifier = Modifier.size(40.dp))
+            }
+            
             // User Info Card
-            Card(
-                modifier = Modifier.fillMaxWidth()
+            GlassCard(
+                modifier = Modifier.fillMaxWidth(),
+                darkTheme = isDarkTheme,
+                padding = "24px"
             ) {
                 Column(
-                    modifier = Modifier.padding(24.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -51,12 +91,14 @@ fun ProfileScreen(
                     )
                     Text(
                         text = "Имя пользователя",
-                        style = MaterialTheme.typography.headlineSmall
+                        style = MaterialTheme.typography.headlineSmall,
+                        fontWeight = FontWeight.SemiBold,
+                        color = if (isDarkTheme) DarkTextPrimary else LightTextPrimary
                     )
                     Text(
                         text = "@telegram_username",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        color = if (isDarkTheme) DarkTextSecondary else LightTextSecondary
                     )
                 }
             }
@@ -64,76 +106,84 @@ fun ProfileScreen(
             // Settings
             Text(
                 text = "Настройки",
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.SemiBold,
+                color = if (isDarkTheme) DarkTextPrimary else LightTextPrimary
             )
             
-            SettingsItem(
+            SettingsGlassItem(
                 title = "Дневная цель калорий",
                 subtitle = "2000 ккал",
-                onClick = { }
+                onClick = { },
+                isDarkTheme = isDarkTheme
             )
             
-            SettingsItem(
+            SettingsGlassItem(
                 title = "Цель по шагам",
                 subtitle = "10000 шагов",
-                onClick = { }
+                onClick = { },
+                isDarkTheme = isDarkTheme
             )
             
-            SettingsItem(
+            SettingsGlassItem(
                 title = "Вес",
                 subtitle = "75 кг",
-                onClick = { }
+                onClick = { },
+                isDarkTheme = isDarkTheme
             )
             
-            SettingsItem(
+            SettingsGlassItem(
                 title = "Рост",
                 subtitle = "180 см",
-                onClick = { }
+                onClick = { },
+                isDarkTheme = isDarkTheme
             )
             
-            SettingsItem(
+            SettingsGlassItem(
                 title = "Возраст",
                 subtitle = "25 лет",
-                onClick = { }
+                onClick = { },
+                isDarkTheme = isDarkTheme
             )
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun SettingsItem(
+private fun SettingsGlassItem(
     title: String,
     subtitle: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    isDarkTheme: Boolean
 ) {
-    Card(
+    GlassCard(
         modifier = Modifier.fillMaxWidth(),
-        onClick = onClick,
-        colors = CardDefaults.cardColors(),
-        shape = MaterialTheme.shapes.medium
+        darkTheme = isDarkTheme,
+        padding = "16px",
+        onClick = onClick
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             Column {
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.titleMedium
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Medium,
+                    color = if (isDarkTheme) DarkTextPrimary else LightTextPrimary
                 )
                 Text(
                     text = subtitle,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = if (isDarkTheme) DarkTextSecondary else LightTextSecondary
                 )
             }
             Icon(
                 Icons.Default.ChevronRight,
-                contentDescription = null
+                contentDescription = null,
+                tint = if (isDarkTheme) DarkTextSecondary else LightTextSecondary
             )
         }
     }
