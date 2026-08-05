@@ -1,52 +1,37 @@
 ```
-# Kotlin/Android build artifacts
+# Compiled and build artifacts
 *.class
-*.dex
-*.jar
-*.aar
+*.o
+*.obj
+*.out
+*.dll
+*.so
+*.a
+*.exe
 
-# Build directories
-build/
+# Dependencies
 .gradle/
-.externalNativeBuild/
+build/
+target/
 
-# Local configuration file (sdk path, etc)
-local.properties
-
-# Log Files
+# Logs and temp files
 *.log
-
-# Android Studio Navigation editor temp files
-.navigation/
-
-# IntelliJ IDEA artifacts
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# Generated/compiled files
-app/build/
-*.apk
-*.ap_
-*.aab
-
-# Temporary files
 *.tmp
-*.temp
+*.swp
 
-# Environment files
+# Environment
 .env
 .env.local
-*.env.*
+.env.*
+
+# Editors
+.vscode/
+.idea/
 
 # Coverage reports
 coverage/
-*.lcov
-*.profdata
-
-# Debug symbols
-*.map
+htmlcov/
+*.coverage
 
 # OS generated files
 .DS_Store
