@@ -11,5 +11,6 @@ data class ProfileUiState(
     val isLoading: Boolean = false,
     val isSaving: Boolean = false,
     val hasUnsavedChanges: Boolean = false,
+    val isLoggedOut: Boolean = false,
     val error: String? = null
 )

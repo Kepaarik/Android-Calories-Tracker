@@ -2,6 +2,7 @@ package com.calorietracker.presentation.screens.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.calorietracker.data.local.preferences.AuthPreferences
 import com.calorietracker.domain.model.ActivityLevel
 import com.calorietracker.domain.model.Gender
 import com.calorietracker.domain.model.User
@@ -19,7 +20,8 @@ import javax.inject.Inject
 class ProfileViewModel @Inject constructor(
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val updateUserProfileUseCase: UpdateUserProfileUseCase,
-    private val calculateCalorieNormUseCase: CalculateCalorieNormUseCase
+    private val calculateCalorieNormUseCase: CalculateCalorieNormUseCase,
+    private val authPreferences: AuthPreferences
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ProfileUiState())
@@ -128,6 +130,13 @@ class ProfileViewModel @Inject constructor(
                         error = exception.message ?: "Failed to save profile"
                     )
                 }
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            authPreferences.clearAuthData()
+            _uiState.value = _uiState.value.copy(isLoggedOut = true)
         }
     }
 

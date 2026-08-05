@@ -39,22 +39,34 @@ fun ProfileScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     
+    // Handle logout state
+    if (uiState.isLoggedOut) {
+        onLogout()
+        return
+    }
+    
     when {
-        uiState.isLoading && uiState.userProfile == null -> {
+        uiState.isLoading && uiState.user == null -> {
             LoadingIndicator(message = "Загрузка профиля...")
         }
-        uiState.errorMessage != null -> {
+        uiState.error != null -> {
             ErrorScreen(
-                message = uiState.errorMessage!!,
-                onRetry = viewModel::loadProfile
+                message = uiState.error!!,
+                onRetry = viewModel::loadUserProfile
             )
         }
         else -> {
             ProfileContent(
-                userProfile = uiState.userProfile,
+                user = uiState.user,
                 calorieNorm = uiState.calorieNorm,
-                onSaveClick = viewModel::onSaveClick,
-                onLogoutClick = onLogout
+                onSaveClick = viewModel::saveProfile,
+                onLogoutClick = viewModel::logout,
+                onNameChange = viewModel::onNameChange,
+                onAgeChange = viewModel::onAgeChange,
+                onGenderChange = viewModel::onGenderChange,
+                onHeightChange = viewModel::onHeightChange,
+                onWeightChange = viewModel::onWeightChange,
+                onActivityLevelChange = viewModel::onActivityLevelChange
             )
         }
     }
