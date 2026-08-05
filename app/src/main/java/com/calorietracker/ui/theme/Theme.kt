@@ -46,7 +46,7 @@ private val LightColorScheme = lightColorScheme(
 @androidx.compose.runtime.Composable
 fun CalorieTrackerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = false,
+    @Suppress("UNUSED_PARAMETER") dynamicColor: Boolean = false,
     content: @androidx.compose.runtime.Composable () -> Unit
 ) {
     val colorScheme = when {

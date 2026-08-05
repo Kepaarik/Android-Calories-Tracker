@@ -21,6 +21,7 @@ class GoogleFitRepository @Inject constructor(
 ) {
 
     private val googleSignInAccount get() = GoogleSignIn.getLastSignedInAccount(context)
+    @Suppress("DEPRECATION")
     private val fitnessApi get() = Fitness.getHistoryClient(context, googleSignInAccount!!)
     
     private val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

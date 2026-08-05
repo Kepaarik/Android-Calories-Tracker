@@ -27,13 +27,13 @@ class BarcodeRepository @Inject constructor(
         }
     }
 
-    suspend fun getProductByBarcode(barcode: String): BarcodeProduct? {
+    suspend fun getProductByBarcode(@Suppress("UNUSED_PARAMETER") barcode: String): BarcodeProduct? {
         // TODO: Implement API call to OpenFoodFacts or similar service
         // For now, return null - product lookup will be implemented via API
         return null
     }
 
-    suspend fun searchProducts(query: String): List<BarcodeProduct> {
+    suspend fun searchProducts(@Suppress("UNUSED_PARAMETER") query: String): List<BarcodeProduct> {
         // TODO: Implement API call to search products
         return emptyList()
     }
