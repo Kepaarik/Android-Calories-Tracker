@@ -1,6 +1,9 @@
 package com.calorietracker.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -8,6 +11,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -19,6 +24,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import com.calorietracker.ui.components.*
+import com.calorietracker.ui.theme.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,134 +39,190 @@ fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
-    val today = LocalDate.now().format(DateTimeFormatter.ISO_LOCAL_DATE)
+    val today = LocalDate.now().format(DateTimeFormatter.ofPattern("dd MMMM yyyy", java.util.Locale("ru")))
+    val isDarkTheme = androidx.compose.foundation.isSystemInDarkTheme()
     
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Сегодня") },
-                actions = {
-                    IconButton(onClick = onNavigateToSettings) {
-                        Icon(Icons.Default.Settings, contentDescription = "Настройки")
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                Brush.verticalGradient(
+                    colors = if (isDarkTheme) {
+                        listOf(DarkBackground, DarkSurface)
+                    } else {
+                        listOf(LightBackground, LightSurface)
                     }
-                }
+                )
             )
-        },
-        bottomBar = {
-            NavigationBar {
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Home, contentDescription = null) },
-                    label = { Text("Главная") },
-                    selected = true,
-                    onClick = { }
-                )
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Add, contentDescription = null) },
-                    label = { Text("Добавить") },
-                    selected = false,
-                    onClick = onNavigateToAddFood
-                )
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.FitnessCenter, contentDescription = null) },
-                    label = { Text("Активность") },
-                    selected = false,
-                    onClick = onNavigateToActivity
-                )
-                NavigationBarItem(
-                    icon = { Icon(Icons.Default.Person, contentDescription = null) },
-                    label = { Text("Профиль") },
-                    selected = false,
-                    onClick = onNavigateToProfile
-                )
-            }
-        }
-    ) { paddingValues ->
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues)
-                .padding(16.dp),
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 20.dp, vertical = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // Calorie Summary Card
-            Card(
+            // Header
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer
-                )
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column {
+                    Text(
+                        text = "Сегодня",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = if (isDarkTheme) DarkTextSecondary else LightTextSecondary
+                    )
+                    Text(
+                        text = today.replaceFirstChar { it.uppercase() },
+                        style = MaterialTheme.typography.headlineMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = if (isDarkTheme) DarkTextPrimary else LightTextPrimary
+                    )
+                }
+                IconButton(
+                    onClick = onNavigateToSettings,
+                    modifier = Modifier
+                        .background(
+                            color = if (isDarkTheme) DarkGlassBg else LightGlassBg,
+                            shape = MaterialTheme.shapes.medium
+                        )
+                ) {
+                    Icon(
+                        Icons.Default.Settings,
+                        contentDescription = "Настройки",
+                        tint = if (isDarkTheme) DarkTextPrimary else LightTextPrimary
+                    )
+                }
+            }
+            
+            // Calorie Summary Card
+            GlassCard(
+                modifier = Modifier.fillMaxWidth(),
+                darkTheme = isDarkTheme,
+                padding = "24px"
             ) {
                 Column(
-                    modifier = Modifier.padding(24.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
-                    Text(
-                        text = "Калории сегодня",
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onPrimaryContainer
-                    )
                     Row(
-                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Калории",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.SemiBold,
+                            color = if (isDarkTheme) DarkTextPrimary else LightTextPrimary
+                        )
+                        Text(
+                            text = "${uiState.goal} ккал",
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = if (isDarkTheme) DarkTextSecondary else LightTextSecondary
+                        )
+                    }
+                    
+                    Row(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.Bottom
                     ) {
                         Text(
                             text = "${uiState.consumed}",
                             style = MaterialTheme.typography.displayLarge,
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                            color = if (isDarkTheme) DarkPrimary else LightPrimary
                         )
                         Text(
-                            text = "/ ${uiState.goal} ккал",
-                            style = MaterialTheme.typography.titleLarge,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.7f)
+                            text = "ккал",
+                            style = MaterialTheme.typography.titleMedium,
+                            color = if (isDarkTheme) DarkTextSecondary else LightTextSecondary
                         )
                     }
-                    LinearProgressIndicator(
-                        progress = if (uiState.goal > 0) uiState.consumed.toFloat() / uiState.goal else 0f,
-                        modifier = Modifier.fillMaxWidth().height(8.dp),
-                        color = MaterialTheme.colorScheme.primary,
-                        trackColor = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.3f)
-                    )
+                    
+                    // Progress bar
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(12.dp)
+                            .background(
+                                color = if (isDarkTheme) DarkGlassBorder else LightGlassBorder,
+                                shape = RoundedCornerShape(6.dp)
+                            )
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth(
+                                    if (uiState.goal > 0) (uiState.consumed.toFloat() / uiState.goal).coerceIn(0f, 1f) else 0f
+                                )
+                                .height(12.dp)
+                                .background(
+                                    Brush.horizontalGradient(
+                                        colors = listOf(
+                                            if (isDarkTheme) DarkPrimary else LightPrimary,
+                                            if (isDarkTheme) DarkPrimaryLight else LightPrimaryLight
+                                        )
+                                    ),
+                                    shape = RoundedCornerShape(6.dp)
+                                )
+                        )
+                    }
+                    
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = "Осталось: ${maxOf(0, uiState.goal - uiState.consumed)}",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = if (isDarkTheme) DarkTextSecondary else LightTextSecondary
+                        )
+                    }
                 }
             }
             
-            // Macros Card
+            // Macros Row
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                MacroCard("Белки", uiState.protein, "г", modifier = Modifier.weight(1f))
-                MacroCard("Жиры", uiState.fat, "г", modifier = Modifier.weight(1f))
-                MacroCard("Углеводы", uiState.carbs, "г", modifier = Modifier.weight(1f))
+                MacroGlassCard("Белки", uiState.protein, "г", ProteinColor, isDarkTheme, modifier = Modifier.weight(1f))
+                MacroGlassCard("Жиры", uiState.fat, "г", FatsColor, isDarkTheme, modifier = Modifier.weight(1f))
+                MacroGlassCard("Углеводы", uiState.carbs, "г", CarbsColor, isDarkTheme, modifier = Modifier.weight(1f))
             }
             
             // Quick Actions
             Text(
                 text = "Быстрые действия",
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                color = if (isDarkTheme) DarkTextPrimary else LightTextPrimary
             )
             
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(16.dp)
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                ActionButton(
+                ActionGlassButton(
                     icon = Icons.Default.QrCodeScanner,
                     label = "Сканер",
                     onClick = onNavigateToScanBarcode,
-                    modifier = Modifier.fillMaxWidth().weight(1f)
+                    darkTheme = isDarkTheme,
+                    modifier = Modifier.weight(1f)
                 )
-                ActionButton(
+                ActionGlassButton(
                     icon = Icons.Default.AddCircle,
                     label = "Еда",
                     onClick = onNavigateToAddFood,
-                    modifier = Modifier.fillMaxWidth().weight(1f)
+                    darkTheme = isDarkTheme,
+                    modifier = Modifier.weight(1f)
                 )
-                ActionButton(
+                ActionGlassButton(
                     icon = Icons.Default.FitnessCenter,
-                    label = "Тренировка",
+                    label = "Спорт",
                     onClick = onNavigateToActivity,
-                    modifier = Modifier.fillMaxWidth().weight(1f)
+                    darkTheme = isDarkTheme,
+                    modifier = Modifier.weight(1f)
                 )
             }
             
@@ -167,116 +230,209 @@ fun HomeScreen(
             Text(
                 text = "Последние записи",
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.SemiBold
+                fontWeight = FontWeight.SemiBold,
+                color = if (isDarkTheme) DarkTextPrimary else LightTextPrimary
             )
             
             if (uiState.recentEntries.isEmpty()) {
-                Text(
-                    text = "Нет записей за сегодня",
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(vertical = 16.dp)
-                )
+                GlassCard(
+                    modifier = Modifier.fillMaxWidth(),
+                    darkTheme = isDarkTheme,
+                    padding = "24px"
+                ) {
+                    Text(
+                        text = "Нет записей за сегодня",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = if (isDarkTheme) DarkTextSecondary else LightTextSecondary,
+                        modifier = Modifier.padding(vertical = 8.dp)
+                    )
+                }
             } else {
                 uiState.recentEntries.forEach { entry ->
-                    Card(
-                        modifier = Modifier.fillMaxWidth()
+                    GlassCard(
+                        modifier = Modifier.fillMaxWidth(),
+                        darkTheme = isDarkTheme,
+                        padding = "16px",
+                        onClick = { }
                     ) {
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
+                            modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Column {
                                 Text(
                                     text = entry.name,
-                                    style = MaterialTheme.typography.titleMedium
+                                    style = MaterialTheme.typography.titleMedium,
+                                    fontWeight = FontWeight.Medium,
+                                    color = if (isDarkTheme) DarkTextPrimary else LightTextPrimary
                                 )
                                 Text(
                                     text = "${entry.calories} ккал",
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = if (isDarkTheme) DarkTextSecondary else LightTextSecondary
                                 )
                             }
                             Text(
                                 text = entry.time,
                                 style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                color = if (isDarkTheme) DarkTextSecondary.copy(alpha = 0.6f) else LightTextSecondary.copy(alpha = 0.6f)
                             )
                         }
                     }
                 }
             }
+            
+            // Bottom Navigation
+            GlassNavigationBar(
+                onNavigateToHome = { },
+                onNavigateToAddFood = onNavigateToAddFood,
+                onNavigateToActivity = onNavigateToActivity,
+                onNavigateToProfile = onNavigateToProfile,
+                isDarkTheme = isDarkTheme
+            )
         }
     }
 }
 
 @Composable
-private fun MacroCard(label: String, value: Int, unit: String, modifier: Modifier = Modifier) {
-    Card(
-        modifier = modifier
-            .fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceVariant
-        )
+private fun MacroGlassCard(label: String, value: Int, unit: String, color: Color, isDarkTheme: Boolean, modifier: Modifier = Modifier) {
+    GlassCard(
+        modifier = modifier,
+        darkTheme = isDarkTheme,
+        padding = "16px"
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Text(
                 text = label,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = if (isDarkTheme) DarkTextSecondary else LightTextSecondary
             )
             Text(
                 text = "$value $unit",
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = color
             )
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun ActionButton(
+private fun ActionGlassButton(
     icon: androidx.compose.ui.graphics.vector.ImageVector,
     label: String,
     onClick: () -> Unit,
+    darkTheme: Boolean,
     modifier: Modifier = Modifier
 ) {
-    Card(
-        modifier = modifier,
+    GlassButton(
         onClick = onClick,
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer
-        ),
-        shape = MaterialTheme.shapes.medium
+        modifier = modifier,
+        text = "",
+        darkTheme = darkTheme,
+        variant = GlassComponentsKt.ButtonVariant.Icon,
+        fullWidth = true
+    ) {
+        // Custom content with icon and label
+    }
+    // Override with custom layout
+    Box(
+        modifier = modifier
+            .clickable { onClick() }
+            .background(
+                color = if (darkTheme) DarkGlassBg else LightGlassBg,
+                shape = RoundedCornerShape(12.dp)
+            )
+            .border(
+                width = 1.dp,
+                color = (if (darkTheme) DarkGlassBorder else LightGlassBorder).copy(alpha = 0.5f),
+                shape = RoundedCornerShape(12.dp)
+            )
+            .padding(12.dp),
+        contentAlignment = Alignment.Center
     ) {
         Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = MaterialTheme.colorScheme.onSecondaryContainer
+                tint = if (darkTheme) DarkPrimary else LightPrimary,
+                modifier = Modifier.size(24.dp)
             )
             Text(
                 text = label,
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSecondaryContainer
+                color = if (darkTheme) DarkTextPrimary else LightTextPrimary
             )
         }
+    }
+}
+
+@Composable
+private fun GlassNavigationBar(
+    onNavigateToHome: () -> Unit,
+    onNavigateToAddFood: () -> Unit,
+    onNavigateToActivity: () -> Unit,
+    onNavigateToProfile: () -> Unit,
+    isDarkTheme: Boolean
+) {
+    GlassCard(
+        modifier = Modifier.fillMaxWidth(),
+        darkTheme = isDarkTheme,
+        padding = "8px"
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            NavGlassItem(Icons.Default.Home, "Главная", true, onNavigateToHome, isDarkTheme)
+            NavGlassItem(Icons.Default.Add, "Добавить", false, onNavigateToAddFood, isDarkTheme)
+            NavGlassItem(Icons.Default.FitnessCenter, "Активность", false, onNavigateToActivity, isDarkTheme)
+            NavGlassItem(Icons.Default.Person, "Профиль", false, onNavigateToProfile, isDarkTheme)
+        }
+    }
+}
+
+@Composable
+private fun NavGlassItem(
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    label: String,
+    selected: Boolean,
+    onClick: () -> Unit,
+    isDarkTheme: Boolean
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .clickable { onClick() }
+            .padding(horizontal = 12.dp, vertical = 8.dp)
+    ) {
+        Icon(
+            imageVector = icon,
+            contentDescription = label,
+            tint = if (selected) {
+                if (isDarkTheme) DarkPrimary else LightPrimary
+            } else {
+                if (isDarkTheme) DarkTextSecondary else LightTextSecondary
+            },
+            modifier = Modifier.size(24.dp)
+        )
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodySmall,
+            color = if (selected) {
+                if (isDarkTheme) DarkPrimary else LightPrimary
+            } else {
+                if (isDarkTheme) DarkTextSecondary else LightTextSecondary
+            }
+        )
     }
 }
 
