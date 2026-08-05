@@ -11,6 +11,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import javax.inject.Inject
@@ -29,6 +31,7 @@ class DashboardViewModel @Inject constructor(
     val uiState: StateFlow<DashboardUiState> = _uiState.asStateFlow()
 
     private var currentDate = LocalDate.now()
+    private var undoJob: Job? = null
 
     init {
         loadDiaryEntries()
@@ -100,17 +103,84 @@ class DashboardViewModel @Inject constructor(
 
     fun deleteDiaryEntry(entryId: Int) {
         viewModelScope.launch {
-            deleteDiaryEntryUseCase(entryId)
-                .onSuccess {
-                    loadDiaryEntries()
-                    loadDailySummary()
+            // Найти запись для undo
+            val entryToRestore = _uiState.value.diaryEntries
+                .flatMap { it.value }
+                .find { it.id == entryId }
+            
+            if (entryToRestore != null) {
+                // Сохранить удалённую запись в state
+                _uiState.value = _uiState.value.copy(
+                    isUndoAvailable = true,
+                    lastDeletedEntry = entryToRestore
+                )
+                
+                // Удалить из UI сразу
+                val currentEntries = _uiState.value.diaryEntries
+                    .mapValues { entries -> entries.value.filter { it.id != entryId } }
+                    .filterValues { it.isNotEmpty() }
+                _uiState.value = _uiState.value.copy(diaryEntries = currentEntries)
+                
+                // Запустить таймер для окончательного удаления
+                undoJob?.cancel()
+                undoJob = launch {
+                    delay(5000) // 5 секунд на отмену
+                    
+                    // Если undo не был вызван, удаляем окончательно
+                    if (_uiState.value.isUndoAvailable) {
+                        deleteDiaryEntryUseCase(entryId)
+                            .onSuccess {
+                                loadDiaryEntries()
+                                loadDailySummary()
+                            }
+                            .onFailure { exception ->
+                                _uiState.value = _uiState.value.copy(
+                                    error = exception.message ?: "Failed to delete entry"
+                                )
+                            }
+                        
+                        _uiState.value = _uiState.value.copy(
+                            isUndoAvailable = false,
+                            lastDeletedEntry = null
+                        )
+                    }
                 }
-                .onFailure { exception ->
-                    _uiState.value = _uiState.value.copy(
-                        error = exception.message ?: "Failed to delete entry"
-                    )
-                }
+            }
         }
+    }
+
+    fun undoDeleteEntry() {
+        viewModelScope.launch {
+            undoJob?.cancel()
+            
+            val entryToRestore = _uiState.value.lastDeletedEntry
+            if (entryToRestore != null) {
+                // Восстановить запись
+                addDiaryEntryUseCase(entryToRestore)
+                    .onSuccess {
+                        loadDiaryEntries()
+                        loadDailySummary()
+                    }
+                    .onFailure { exception ->
+                        _uiState.value = _uiState.value.copy(
+                            error = exception.message ?: "Failed to restore entry"
+                        )
+                    }
+            }
+            
+            _uiState.value = _uiState.value.copy(
+                isUndoAvailable = false,
+                lastDeletedEntry = null
+            )
+        }
+    }
+
+    fun clearUndoState() {
+        undoJob?.cancel()
+        _uiState.value = _uiState.value.copy(
+            isUndoAvailable = false,
+            lastDeletedEntry = null
+        )
     }
 
     fun updateDate(date: LocalDate) {
